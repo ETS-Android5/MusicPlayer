@@ -27,11 +27,34 @@ public class DetailActivity extends AppCompatActivity {
         TextView mRating = findViewById(R.id.tvRating);
         TextView mDescription = findViewById(R.id.tvDescription);
 
+        //Initialize button for integration with browser
+        ImageButton mSearch = findViewById(R.id.btnSearch);
+
+        //Initialize string values
+        String song = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
+        String singer = MainActivity.songsTemp.get(MainActivity.intSong).getSinger();
+        String genre = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
+        String rating = String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating());
+        String description = MainActivity.songsTemp.get(MainActivity.intSong).getDescription();
+
         //Set the text of the TextViews for Song, Singer, Genre and Rating
         //Note: this can be simplified by creating new Strings to store those values, instead of having to use getters and setters each time
-        mSong.setText(MainActivity.songsTemp.get(MainActivity.intSong).getSong());
-        mSinger.setText(MainActivity.songsTemp.get(MainActivity.intSong).getSinger());
-        mGenre.setText(MainActivity.songsTemp.get(MainActivity.intSong).getGenre());
-        mRating.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating()));
+        mSong.setText(song);
+        mSinger.setText(singer);
+        mGenre.setText(genre);
+        mRating.setText(rating);
+        mDescription.setText(description);
+
+        //Set an OnClickListener to take user to Google search for Artist and Song when user clicks on Button Search
+        mSearch.setOnClickListener(new View.OnClickListener() {
+            //Override the onClick method
+            @Override
+            public void onClick(View view) {
+                //Specify a new intent to take user to browser search
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com.au/search?q=" +
+                        singer + " " + song));
+                startActivity(intent);
+            }
+        });
     }
 }
