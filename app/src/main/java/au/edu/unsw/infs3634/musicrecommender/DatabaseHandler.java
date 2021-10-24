@@ -31,8 +31,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //For the song art
-//    String stringFilePath = Environment.getExternalStorageDirectory().getPath()
-//    Bitmap bitmap = BitmapFactory.decodeFile(stringFilePath);
+    String stringFilePath = Environment.getExternalStorageDirectory().getPath();
+    Bitmap bitmap = BitmapFactory.decodeFile(stringFilePath);
 
     //Constructor for DatabaseHandler
     public DatabaseHandler(@Nullable Context context) {
