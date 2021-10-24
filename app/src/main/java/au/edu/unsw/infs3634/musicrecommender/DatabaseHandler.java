@@ -72,20 +72,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Declare the methods to insert a Song into the database
     //This will be looped for each song in the ArrayList songs
-    public boolean addSong(Song song, byte[] byteImage) {
+    public boolean addSong(String song, String singer, String genre, Float rating, String description, byte[] albumImg) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Need to instantiate a new instance of ContentValues to access values method
         ContentValues cv = new ContentValues();
 
         //Associate columns of the table with the actual value we pass in from the parameter
-        cv.put(COLUMN_SONG_NAME, song.getSong());
-        cv.put(COLUMN_SONG_SINGER, song.getSinger());
-        cv.put(COLUMN_SONG_GENRE, song.getGenre());
-        cv.put(COLUMN_SONG_RATING, song.getRating());
-        cv.put(COLUMN_SONG_DESCRIPTION, song.getDescription());
-        cv.put(COLUMN_SONG_IMAGE, song.getDescription());
-        cv.put(COLUMN_SONG_IMAGE, byteImage);
+        cv.put(COLUMN_SONG_NAME, song);
+        cv.put(COLUMN_SONG_SINGER, singer);
+        cv.put(COLUMN_SONG_GENRE, genre);
+        cv.put(COLUMN_SONG_RATING, rating);
+        cv.put(COLUMN_SONG_DESCRIPTION, description);
+        cv.put(COLUMN_SONG_IMAGE, albumImg);
         //Note, we do not need to associate ID with anything, because it is an AUTOINCREMENT column in our database
 
         //Insert the values into the database
@@ -97,6 +96,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
+//
+//    public boolean addAlbumImg(byte[] albumImg) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//        cv.put(COLUMN_SONG_IMAGE, albumImg);
+//
+//        long insert = db.insert(SONG_TABLE,null, cv);
+//        if (insert ==-1) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
 
         // Method to return a list of all our Songs in our table from our Database

@@ -32,10 +32,20 @@ public class MainActivity extends AppCompatActivity {
     private SongAdapter myAdapter;
     private RecyclerView myRecyclerView;
 
+    private Bitmap bm;
 
 
 
 
+
+    //Method to convert bitmaps into byteArrays for BLOB storage
+    public byte[] toBytesArray(int image) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), image);
+        bm.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] bytesImage = stream.toByteArray();
+        return bytesImage;
+    }
 
 
     @SuppressLint("WrongThread")
@@ -63,20 +73,20 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setLayoutManager(layoutManager);
 
 
-        //Insert images as BLOBs by converting bitmaps into ByteArrays by instantiating a ByteArrayOutputStream
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image_1);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        byte[] bytesImage = stream.toByteArray();
-
-
         //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
-        for (Song song : songsTemp) {
-            databaseHandler.addSong(song, bytesImage);
-        }
-        System.out.println("Songs Added");
-        //we now have enough information to populate our table
+        databaseHandler.addSong("Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", toBytesArray(R.drawable.image_1));
+        databaseHandler.addSong("Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", toBytesArray(R.drawable.image_2));
+        databaseHandler.addSong("C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", toBytesArray(R.drawable.image_1));
+        databaseHandler.addSong("Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
+        databaseHandler.addSong("Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
+        databaseHandler.addSong("Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
+        databaseHandler.addSong("Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
+        databaseHandler.addSong("Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
+//        for (Song song : songsTemp) {
+//            databaseHandler.addSong(song);
+//        }
+//        System.out.println("Songs Added");
 
 
         //Instantiate an onClickListener so that when a user clicks an item in our RecyclerView, user is taken to DetailActivity
