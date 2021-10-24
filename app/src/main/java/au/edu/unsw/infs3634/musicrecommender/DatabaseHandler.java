@@ -72,7 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Declare the methods to insert a Song into the database
     //This will be looped for each song in the ArrayList songs
-    public boolean addSong(Song song) {
+    public boolean addSong(Song song, byte[] byteImage) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Need to instantiate a new instance of ContentValues to access values method
@@ -84,6 +84,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_SONG_GENRE, song.getGenre());
         cv.put(COLUMN_SONG_RATING, song.getRating());
         cv.put(COLUMN_SONG_DESCRIPTION, song.getDescription());
+        cv.put(COLUMN_SONG_IMAGE, song.getDescription());
+        cv.put(COLUMN_SONG_IMAGE, byteImage);
         //Note, we do not need to associate ID with anything, because it is an AUTOINCREMENT column in our database
 
         //Insert the values into the database
@@ -96,42 +98,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-//    //Method to return a Song's values, based on the song's Id
-//    Song getSong(int id) {
-//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-//
-//        //Need to instantiate a Cursor
-//        //A cursor is a result set from a query operation in SQLite
-//        //Need to loop through the cursor items and process each line of the search result
-//        Cursor cursor = sqLiteDatabase.query(tableSongs, new String[] {
-//                keyId, keySong, keySinger, keyGenre, keyRating, keyDescription + " =?",
-//                new String[] {
-//                        String.valueOf(id)
-//                }, null, null, null, null, null, null);
-//        if (cursor!= null)
-//            cursor.moveToFirst();
-//
-//        Song song = new Song(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2), cursor.getString(), cursor.getString())
-//
-//        return song;
-//    }
 
-//        // code to get the single contact
-//        Contact getContact(int id) {
-//            SQLiteDatabase db = this.getReadableDatabase();
-//
-//            Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-//                            KEY_NAME, KEY_PH_NO }, KEY_ID + "=?",
-//                    new String[] { String.valueOf(id) }, null, null, null, null);
-//            if (cursor != null)
-//                cursor.moveToFirst();
-//
-//            Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
-//                    cursor.getString(1), cursor.getString(2));
-//            // return contact
-//            return contact;
-//        }
-//
         // Method to return a list of all our Songs in our table from our Database
         public List<Song> getSongs() {
             List<Song> returnSongList = new ArrayList<Song>();
@@ -215,5 +182,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        }
 //
 //    }
+
+    //    //Method to return a Song's values, based on the song's Id
+//    Song getSong(int id) {
+//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+//
+//        //Need to instantiate a Cursor
+//        //A cursor is a result set from a query operation in SQLite
+//        //Need to loop through the cursor items and process each line of the search result
+//        Cursor cursor = sqLiteDatabase.query(tableSongs, new String[] {
+//                keyId, keySong, keySinger, keyGenre, keyRating, keyDescription + " =?",
+//                new String[] {
+//                        String.valueOf(id)
+//                }, null, null, null, null, null, null);
+//        if (cursor!= null)
+//            cursor.moveToFirst();
+//
+//        Song song = new Song(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2), cursor.getString(), cursor.getString())
+//
+//        return song;
+//    }
+
+//        // code to get the single contact
+//        Contact getContact(int id) {
+//            SQLiteDatabase db = this.getReadableDatabase();
+//
+//            Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
+//                            KEY_NAME, KEY_PH_NO }, KEY_ID + "=?",
+//                    new String[] { String.valueOf(id) }, null, null, null, null);
+//            if (cursor != null)
+//                cursor.moveToFirst();
+//
+//            Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
+//                    cursor.getString(1), cursor.getString(2));
+//            // return contact
+//            return contact;
+//        }
+//
 
 }

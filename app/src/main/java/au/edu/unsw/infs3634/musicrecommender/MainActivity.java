@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,10 +62,18 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(layoutManager);
 
+
+        //Insert images as BLOBs by converting bitmaps into ByteArrays by instantiating a ByteArrayOutputStream
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image_1);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] bytesImage = stream.toByteArray();
+
+
         //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
         for (Song song : songsTemp) {
-            databaseHandler.addSong(song);
+            databaseHandler.addSong(song, bytesImage);
         }
         System.out.println("Songs Added");
         //we now have enough information to populate our table
