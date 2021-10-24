@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,12 +31,16 @@ public class DetailActivity extends AppCompatActivity {
         //Initialize button for integration with browser
         ImageButton mSearch = findViewById(R.id.btnSearch);
 
+        //Initialize image
+        ImageView imageView = findViewById(R.id.imgAlbum);
+
         //Initialize string values
         String song = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
         String singer = MainActivity.songsTemp.get(MainActivity.intSong).getSinger();
         String genre = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
         String rating = String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating());
         String description = MainActivity.songsTemp.get(MainActivity.intSong).getDescription();
+
 
         //Set the text of the TextViews for Song, Singer, Genre and Rating
         //Note: this can be simplified by creating new Strings to store those values, instead of having to use getters and setters each time
@@ -44,6 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         mGenre.setText(genre);
         mRating.setText(rating);
         mDescription.setText(description);
+        imageView.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
 
         //Set an OnClickListener to take user to Google search for Artist and Song when user clicks on Button Search
         mSearch.setOnClickListener(new View.OnClickListener() {

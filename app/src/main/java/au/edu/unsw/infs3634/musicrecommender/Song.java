@@ -5,26 +5,49 @@ import java.util.ArrayList;
 public class Song {
 
     //Declare attributes
+    private int id;
     private String song;
     private String singer;
-    private Float rating;
     private String genre;
+    private Float rating;
     private String description;
+    private int image;
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
 
     //Declare constructor
-    public Song (String song, String singer, float rating, String genre, String description) {
+    public Song (int id, String song, String singer, String genre, float rating, String description, int image) {
+        this.id = id;
         this.song = song;
         this.singer = singer;
-        this.rating = rating;
         this.genre = genre;
+        this.rating = rating;
         this.description = description;
+        this.image = image;
     }
 
     //Declare empty constructor
     public Song () {
     }
 
+
+
     //Declare getter and setters
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getSong() {
         return song;
     }
@@ -67,14 +90,14 @@ public class Song {
 
     public static ArrayList<Song> getSongs() {
         ArrayList<Song> songs = new ArrayList<>();
-        songs.add(new Song("Endless Motion", "Benjamin Tissot", 3.4f, "Electro", "Benjamin produced this hypnotic, but otherwise awesome electronic dance track."));
-        songs.add(new Song("Tech House vibes", "Alejandro Magaña", 3.8f, "Electronic", "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup."));
-        songs.add(new Song("C.B.P.D", "Arulo", 4.2f, "Hip Hop", "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat."));
-        songs.add(new Song("Dreams", "Benjamin Tissot", 3.9f, "Electro", "Sample Description - this will be changed later."));
-        songs.add(new Song("Happiness", "Benjamin Tissot", 4.1f, "Folk", "Sample Description - this will be changed later."));
-        songs.add(new Song("Complicated", "Arulo", 4.2f, "Hip Hop", "Sample Description - this will be changed later."));
-        songs.add(new Song("Sports Highlights", "Ahjay Stelino", 3.1f, "Rock", "Sample Description - this will be changed later."));
-        songs.add(new Song("Sneaky Snitch", "Kevin Macleod", 4.9f, "Classical", "Sample Description - this will be changed later."));
+        songs.add(new Song(1, "Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", R.drawable.image_1));
+        songs.add(new Song(2, "Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", R.drawable.image_2));
+        songs.add(new Song(3, "C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", R.drawable.image_1));
+        songs.add(new Song(4, "Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", R.drawable.image_2));
+        songs.add(new Song(5, "Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", R.drawable.image_1));
+        songs.add(new Song(6, "Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", R.drawable.image_2));
+        songs.add(new Song(7, "Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", R.drawable.image_1));
+        songs.add(new Song(8, "Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", R.drawable.image_2));
         return songs;
     }
 }

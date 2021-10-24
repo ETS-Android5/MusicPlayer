@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="Song:"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
+        app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
 
     <TextView
         android:id="@+id/tvSong"
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toTopOf="@+id/textArtist" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgAlbum"
         android:layout_width="235dp"
         android:layout_height="257dp"
         android:layout_marginTop="28dp"
@@ -92,9 +92,9 @@
         android:layout_height="161dp"
         android:layout_marginTop="40dp"
         android:text="This is a sample description"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
         app:layout_constraintTop_toBottomOf="@+id/textGenre" />
 
     <ImageButton

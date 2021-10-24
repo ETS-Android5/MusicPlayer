@@ -1,10 +1,13 @@
 package au.edu.unsw.infs3634.musicrecommender;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,12 +32,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Upon creation of this Activity, we want to set the contentView to activity_main
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Need write and read external storage permissions in order to display images stored in android memory
+        ActivityCompat.requestPermissions(this, new String[]
+                { Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE },
+                PackageManager.PERMISSION_GRANTED);
 
         //Load the list of Songs into songsTemp
         songsTemp = Song.getSongs();
@@ -46,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
         //Set the LayoutManager of the RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(layoutManager);
+
+        //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
+        DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
+        for (Song song : songsTemp) {
+            databaseHandler.addSong(song);
+        }
+        System.out.println("Songs Added");
+        //we now have enough information to populate our table
+
 
         //Instantiate an onClickListener so that when a user clicks an item in our RecyclerView, user is taken to DetailActivity
         SongAdapter.ClickListener clickListener = new SongAdapter.ClickListener() {
