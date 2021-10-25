@@ -85,6 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_SONG_RATING, rating);
         cv.put(COLUMN_SONG_DESCRIPTION, description);
         cv.put(COLUMN_SONG_IMAGE, albumImg);
+
         //Note, we do not need to associate ID with anything, because it is an AUTOINCREMENT column in our database
 
         //Insert the values into the database
@@ -111,55 +112,54 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    }
 
 
-        // Method to return a list of all our Songs in our table from our Database
-        public List<Song> getSongs() {
-            List<Song> returnSongList = new ArrayList<Song>();
-            // SQL statement to return all rows from our database
-            String querySelect = "SELECT  * FROM " + SONG_TABLE;
+    // Method to return a list of all our Songs in our table from our Database
+    public List<Song> getSongs() {
+        List<Song> returnSongList = new ArrayList<Song>();
+        // SQL statement to return all rows from our database
+        String querySelect = "SELECT  * FROM " + SONG_TABLE;
 
-            //Note: we use getReadableDatabase() instead of getWriteable because writeable will lock up the Database from other processes - can bottleneck other processes
-            SQLiteDatabase db = this.getReadableDatabase();
+        //Note: we use getReadableDatabase() instead of getWriteable because writeable will lock up the Database from other processes - can bottleneck other processes
+        SQLiteDatabase db = this.getReadableDatabase();
 
-            //We now execute our query and store our results in a Cursor - a cursor is used to store a resultSet
-            //Selection args is used when we are using Prepared Statements; so leave as null otherwise
-            Cursor cursor = db.rawQuery(querySelect, null);
-
+        //We now execute our query and store our results in a Cursor - a cursor is used to store a resultSet
+        //Selection args is used when we are using Prepared Statements; so leave as null otherwise
+        Cursor cursor = db.rawQuery(querySelect, null);
             //we check if we returned any results from our query
             //moveToFirst() returns true if Java is able to go to the first row and there are results
             //If there are results in our cursor, loop through the cursor (Result Set) and create new Song objects, and add them to our songList
-            if (cursor.moveToFirst()) {
-                do {
-                    //Assign values of Song variables as the columns in our cursor resultSet
-                    //Note we need to know what are the column numbers of our resultSet
-                    int songId = cursor.getInt(0);
-                    String songName = cursor.getString(1);
-                    String songSinger = cursor.getString(2);
-                    String songGenre = cursor.getString(3);
-                    float songRating = cursor.getFloat(4);
-                    String songDescription = cursor.getString(5);
-                    // Adding song to returnList
-                    //Create a new song using these values
-//                    Song song = new Song(songId, songName, songSinger, songGenre, songRating, songDescription);
-//                    //Now we just add our new song to our return List
-//                    returnSongList.add(song);
+        if (cursor.moveToFirst()) {
+            do {
+                //Assign values of Song variables as the columns in our cursor resultSet
+                //Note we need to know what are the column numbers of our resultSet
+                int songId = cursor.getInt(0);
+                String songName = cursor.getString(1);
+                String songSinger = cursor.getString(2);
+                String songGenre = cursor.getString(3);
+                float songRating = cursor.getFloat(4);
+                String songDescription = cursor.getString(5);
+                // Adding song to returnList
+                //Create a new song using these values
+//                   Song song = new Song(songId, songName, songSinger, songGenre, songRating, songDescription);
+//                   //Now we just add our new song to our return List
+//                   returnSongList.add(song);
 
-                    //Loop through adding in Songs until there is no more rows in our Cursor (Result set) - important to use moveToNext()
-                    //moveToNext means while there is still a row to move next to
-                    //Using moveToFirst() will result in an infinite loop, so do not use that
-                } while (cursor.moveToNext());
+                //Loop through adding in Songs until there is no more rows in our Cursor (Result set) - important to use moveToNext()
+                //moveToNext means while there is still a row to move next to
+                //Using moveToFirst() will result in an infinite loop, so do not use that
+            } while (cursor.moveToNext());
 
             //If our query returned no results:
-            } else {
-                //If there is no results in our query, do nothing
-                ;
-            }
-            //When we are done, we just need to close the connection to the cursor and database so other resources can use it
-            cursor.close();
-            db.close();
-
-            //Our method must return a list...
-            return returnSongList;
+        } else {
+            //If there is no results in our query, do nothing
+            ;
         }
+        //When we are done, we just need to close the connection to the cursor and database so other resources can use it
+        cursor.close();
+        db.close();
+
+        //Our method must return a list...
+        return returnSongList;
+    }
 //
 //        // code to update the single contact
 //        public int updateContact(Contact contact) {

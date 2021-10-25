@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,9 +17,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,11 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Song> songsTemp = new ArrayList<>();
     private SongAdapter myAdapter;
     private RecyclerView myRecyclerView;
-
-    private Bitmap bm;
-
-
-
 
 
     //Method to convert bitmaps into byteArrays for BLOB storage
@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Need write and read external storage permissions in order to display images stored in android memory
         ActivityCompat.requestPermissions(this, new String[]
-                { Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE },
+                        {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                 PackageManager.PERMISSION_GRANTED);
 
         //Load the list of Songs into songsTemp
         songsTemp = Song.getSongs();
 
-        //Instantiate our RecyclerView
+        //Initializer  our RecyclerView
         myRecyclerView = findViewById(R.id.recyclerView);
         myRecyclerView.setHasFixedSize(true);
 
@@ -73,20 +73,39 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setLayoutManager(layoutManager);
 
 
+
         //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
-        databaseHandler.addSong("Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", toBytesArray(R.drawable.image_1));
-        databaseHandler.addSong("Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", toBytesArray(R.drawable.image_2));
-        databaseHandler.addSong("C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", toBytesArray(R.drawable.image_1));
-        databaseHandler.addSong("Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
-        databaseHandler.addSong("Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
-        databaseHandler.addSong("Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
-        databaseHandler.addSong("Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
-        databaseHandler.addSong("Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
-//        for (Song song : songsTemp) {
-//            databaseHandler.addSong(song);
-//        }
-//        System.out.println("Songs Added");
+        //for loop to add all existing songs to the database
+        //To prevent adding multiple times, we check if db exists already
+
+        if (databaseExists(this, "SONGS.DB") == false) {
+            //Arbitrary variable to do for loop to add arraylist items to database
+            int i = 0;
+            for (Song song : songsTemp) {
+                databaseHandler.addSong(
+                        songsTemp.get(i).getSong(),
+                        songsTemp.get(i).getSinger(),
+                        songsTemp.get(i).getGenre(),
+                        songsTemp.get(i).getRating(),
+                        songsTemp.get(i).getDescription(),
+                        toBytesArray(songsTemp.get(i).getImage())
+                );
+                i += 1;
+            }
+        }
+//        databaseHandler.addSong("Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", toBytesArray(R.drawable.image_1));
+//        databaseHandler.addSong("Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", toBytesArray(R.drawable.image_2));
+//        databaseHandler.addSong("C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", toBytesArray(R.drawable.image_1));
+//        databaseHandler.addSong("Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
+//        databaseHandler.addSong("Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
+//        databaseHandler.addSong("Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
+//        databaseHandler.addSong("Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
+//        databaseHandler.addSong("Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
+////        for (Song song : songsTemp) {
+////            databaseHandler.addSong(song);
+////        }
+////        System.out.println("Songs Added");
 
 
         //Instantiate an onClickListener so that when a user clicks an item in our RecyclerView, user is taken to DetailActivity
@@ -110,9 +129,6 @@ public class MainActivity extends AppCompatActivity {
         //Link RecyclerView to Adapter
         myRecyclerView.setAdapter(myAdapter);
     }
-
-
-
 
 
     //Override the onCreate method for the Menu
@@ -145,9 +161,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     //Implement onOptionItemSelected behaviour to define the behaviour when user clicks on Sort by Artist, or Song Name
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -164,5 +177,12 @@ public class MainActivity extends AppCompatActivity {
                 //By default, if nothing is selected by user
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //Method to check if the database exists
+    //If it doesn't exist, we use the addSong method upon Activity Creation
+    private static boolean databaseExists(Context context, String db) {
+        File dbFile = context.getDatabasePath(db);
+        return dbFile.exists();
     }
 }

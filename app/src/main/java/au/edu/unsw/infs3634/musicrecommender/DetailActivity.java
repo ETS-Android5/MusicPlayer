@@ -1,16 +1,33 @@
 package au.edu.unsw.infs3634.musicrecommender;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.TimeUnit;
+
 public class DetailActivity extends AppCompatActivity {
+
+    //Initialize components needed to play Songs
+    ImageView btnRewind, btnPlay, btnFastForward, btnPause;
+    TextView playerPosition, playerDuration;
+    SeekBar seeker;
+
+    //Need instance of MediaPlayer and Handlers and Runnables to stop and start songs
+    Runnable runnable;
+    Handler handler = new Handler();
+    MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +37,175 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
+
+
+        //================================================SECTION FOR MEDIA PLAYER==============================================
+        //Initialize the player variables as required
+        playerPosition = findViewById(R.id.tvPlayerPosition);
+        playerDuration = findViewById(R.id.tvPlayerDuration);
+        seeker = findViewById(R.id.seeker);
+        btnPlay = findViewById(R.id.btnPlay);
+        btnRewind = findViewById(R.id.btnRewind);
+        btnFastForward = findViewById(R.id.btnFastForward);
+        btnPause = findViewById(R.id.btnPause);
+
+        //Create our Media Player and set it to play the music file of our Song
+        mediaPlayer = MediaPlayer.create(this, MainActivity.songsTemp.get(MainActivity.intSong).getMusicFile());
+
+
+
+
+        //Initialize runnable so that the player can be run or stopped as required
+        runnable = new Runnable() {
+            //Method to run the the player
+            @Override
+            public void run() {
+                //Set the progress on the seeker as the current position on the media player
+                seeker.setProgress(mediaPlayer.getCurrentPosition());
+                //Handler post delay for 0.5 second
+                handler.postDelayed(this, 500);
+            }
+        };
+
+
+
+
+        //Convert the duration of the mediaPlayer into a String format so it can be displayed in TextViews
+        //Then set the duration TextView as the time remaining
+        int d = mediaPlayer.getDuration();
+        String duration = convertFormat(d);
+        playerDuration.setText(duration);
+
+
+
+
+
+        //Pressing play will start the media player and hide the play button but shows the pause button
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+                //Show the pause button but hide the play button
+                btnPause.setVisibility(View.VISIBLE);
+                btnPlay.setVisibility(View.GONE);
+
+                //Assign maximum values on the as the duration of the music file
+                seeker.setMax(mediaPlayer.getDuration());
+                handler.postDelayed(runnable, 0);
+            }
+        });
+
+
+
+        //Clicking on pause will pause the media player
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Show the play button but hide the pause button
+                btnPlay.setVisibility(View.VISIBLE);
+                btnPause.setVisibility(View.GONE);
+
+                //Pause the media player and stop the handler
+                mediaPlayer.pause();
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+
+
+
+        //When the user presses fast forward, the music is moved forward by 10 seconds
+        btnFastForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Get current position and duration of the mediaPlayer
+                int position = mediaPlayer.getCurrentPosition();
+
+                //Get the duration of the media player
+                //If the current position of the media player is not at the end, fast forward the song by 5 seconds
+                int d = mediaPlayer.getDuration();
+                if (mediaPlayer.isPlaying() && position != d) {
+                    //Note we are using milliseconds
+                    position += 5000;
+
+                    //seek to 5 seconds ahead of current time and change the playerPosition's text to 5 seconds ahead
+                    mediaPlayer.seekTo(position);
+                    playerPosition.setText(convertFormat(position));
+                }
+            }
+        });
+
+
+
+
+        //Pressing rewind will take the user back by 5 seconds in the song
+        btnRewind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Get current position
+                int position = mediaPlayer.getCurrentPosition();
+
+                //If the song is at least 5 seconds in, we can rewind back by 5 seconds
+                if (mediaPlayer.isPlaying() && position > 5000) {
+                    position -=  5000;
+
+                    //Set the current progress on seekBar and change the TextView to the position of the player
+                    mediaPlayer.seekTo(position);
+                    playerPosition.setText(convertFormat(position));
+
+                }
+            }
+        });
+
+
+
+
+        //Whenever the user adjusts the seeker, adjust both the song time and the TextView to the adjusted time
+        seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int newPosition, boolean seekerChanged) {
+                //Check if the seeker position has been changed by the user
+                //If so, adjust media player to new position
+                if (seekerChanged) {
+                    mediaPlayer.seekTo(newPosition);
+                }
+                //Change textView to reflecr new position
+                playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                ;
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                ;
+            }
+        });
+
+
+
+
+        //When the song finishes playing, stop playing the song, and hide the pause button
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                btnPlay.setVisibility(View.VISIBLE);
+                btnPause.setVisibility(View.GONE);
+
+                //Reset the position of the media player to 0
+                mediaPlayer.seekTo(0);
+            }
+        });
+
+
+
+
+
+
+        //=====================================================SECTION FOR OTHER XML ELEMENTS =======================================================
 
         //Create and initialize variables for each TextView that holds data on each country
         TextView mSong = findViewById(R.id.tvSong);
@@ -62,5 +248,15 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    //For Media Player
+    //Converts the duration of the song into a 00:00 format, using MILLISECONDS as a time unit
+    @SuppressLint("DefaultLocale")
+    private String convertFormat(int duration) {
+        return String.format(
+                "%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(duration),
+                TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
+        );
     }
 }

@@ -11,10 +11,10 @@
         android:id="@+id/textSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="84dp"
         android:text="Song:"
         app:layout_constraintStart_toStartOf="@+id/imgAlbum"
-        app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+        app:layout_constraintTop_toBottomOf="@+id/seeker" />
 
     <TextView
         android:id="@+id/tvSong"
@@ -88,8 +88,8 @@
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="228dp"
-        android:layout_height="161dp"
+        android:layout_width="232dp"
+        android:layout_height="82dp"
         android:layout_marginTop="40dp"
         android:text="This is a sample description"
         app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
@@ -106,5 +106,74 @@
         app:layout_constraintStart_toEndOf="@+id/tvSong"
         app:layout_constraintTop_toTopOf="@+id/tvSong"
         app:srcCompat="@drawable/ic_search_black_24dp" />
+
+    <SeekBar
+        android:id="@+id/seeker"
+        android:layout_width="240dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+
+    <TextView
+        android:id="@+id/tvPlayerPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="00:00"
+        app:layout_constraintEnd_toStartOf="@+id/seeker"
+        app:layout_constraintTop_toTopOf="@+id/seeker" />
+
+    <TextView
+        android:id="@+id/tvPlayerDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="336dp"
+        android:text="00:00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seeker" />
+
+    <ImageView
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seeker"
+        app:srcCompat="@drawable/icon_play" />
+
+    <ImageView
+        android:id="@+id/btnPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seeker"
+        app:srcCompat="@drawable/icon_pause" />
+
+    <ImageView
+        android:id="@+id/btnFastForward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        app:layout_constraintStart_toEndOf="@+id/btnPlay"
+        app:layout_constraintTop_toTopOf="@+id/btnPlay"
+        app:srcCompat="@drawable/icon_fast_forward" />
+
+    <ImageView
+        android:id="@+id/btnRewind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+        app:layout_constraintTop_toTopOf="@+id/btnPlay"
+        app:srcCompat="@drawable/icon_rewind" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
