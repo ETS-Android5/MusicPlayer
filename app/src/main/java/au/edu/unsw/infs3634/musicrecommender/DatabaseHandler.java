@@ -27,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_SONG_RATING = "SONG_RATING";
     private static final String COLUMN_SONG_DESCRIPTION = "SONG_DESCRIPTION";
     private static final String COLUMN_SONG_IMAGE = "SONG_IMAGE";
-
+    private static final String COLUMN_SONG_PLAYS = "SONG_PLAYS";
 
 
     //For the song art
@@ -54,7 +54,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COLUMN_SONG_GENRE + " TEXT, "
                 + COLUMN_SONG_RATING + " FLOAT, "
                 + COLUMN_SONG_DESCRIPTION + " TEXT, "
-                + COLUMN_SONG_IMAGE + " BLOB"
+                + COLUMN_SONG_IMAGE + " BLOB, "
+                + COLUMN_SONG_PLAYS + " INTEGER"
                 + ")";
 
         //Execute the SQL query to create our tables
@@ -72,7 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Declare the methods to insert a Song into the database
     //This will be looped for each song in the ArrayList songs
-    public boolean addSong(String song, String singer, String genre, Float rating, String description, byte[] albumImg) {
+    public boolean addSong(String song, String singer, String genre, Float rating, String description, byte[] albumImg, int plays) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Need to instantiate a new instance of ContentValues to access values method
@@ -85,36 +86,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_SONG_RATING, rating);
         cv.put(COLUMN_SONG_DESCRIPTION, description);
         cv.put(COLUMN_SONG_IMAGE, albumImg);
+        cv.put(COLUMN_SONG_PLAYS, plays);
 
         //Note, we do not need to associate ID with anything, because it is an AUTOINCREMENT column in our database
 
         //Insert the values into the database
         //insert returns a long, -1 means failed add while 1 means successful add
         long insert = db.insert(SONG_TABLE, null, cv);
-        if (insert ==-1) {
+        if (insert == -1) {
             return false;
         } else {
             return true;
         }
     }
-//
-//    public boolean addAlbumImg(byte[] albumImg) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//        cv.put(COLUMN_SONG_IMAGE, albumImg);
-//
-//        long insert = db.insert(SONG_TABLE,null, cv);
-//        if (insert ==-1) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
 
     // Method to return a list of all our Songs in our table from our Database
-    public List<Song> getSongs() {
-        List<Song> returnSongList = new ArrayList<Song>();
+    public ArrayList<Song> getSongs() {
+        ArrayList<Song> returnSongList = new ArrayList<Song>();
         // SQL statement to return all rows from our database
         String querySelect = "SELECT  * FROM " + SONG_TABLE;
 
@@ -124,9 +112,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //We now execute our query and store our results in a Cursor - a cursor is used to store a resultSet
         //Selection args is used when we are using Prepared Statements; so leave as null otherwise
         Cursor cursor = db.rawQuery(querySelect, null);
-            //we check if we returned any results from our query
-            //moveToFirst() returns true if Java is able to go to the first row and there are results
-            //If there are results in our cursor, loop through the cursor (Result Set) and create new Song objects, and add them to our songList
+        //we check if we returned any results from our query
+        //moveToFirst() returns true if Java is able to go to the first row and there are results
+        //If there are results in our cursor, loop through the cursor (Result Set) and create new Song objects, and add them to our songList
         if (cursor.moveToFirst()) {
             do {
                 //Assign values of Song variables as the columns in our cursor resultSet
@@ -137,11 +125,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String songGenre = cursor.getString(3);
                 float songRating = cursor.getFloat(4);
                 String songDescription = cursor.getString(5);
+                int songPlays = cursor.getInt(7);
+
                 // Adding song to returnList
                 //Create a new song using these values
-//                   Song song = new Song(songId, songName, songSinger, songGenre, songRating, songDescription);
-//                   //Now we just add our new song to our return List
-//                   returnSongList.add(song);
+                //We leave the image and musicFile as 0 because we assume that user cannot change the image or audio file
+                Song song = new Song(songId, songName, songSinger, songGenre, songRating, songDescription, 0, 0, songPlays);
+                //Now we just add our new song to our return List
+                returnSongList.add(song);
 
                 //Loop through adding in Songs until there is no more rows in our Cursor (Result set) - important to use moveToNext()
                 //moveToNext means while there is still a row to move next to
@@ -160,76 +151,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Our method must return a list...
         return returnSongList;
     }
-//
-//        // code to update the single contact
-//        public int updateContact(Contact contact) {
-//            SQLiteDatabase db = this.getWritableDatabase();
-//
-//            ContentValues values = new ContentValues();
-//            values.put(KEY_NAME, contact.getName());
-//            values.put(KEY_PH_NO, contact.getPhoneNumber());
-//
-//            // updating row
-//            return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
-//                    new String[] { String.valueOf(contact.getID()) });
-//        }
-//
-//        // Deleting single contact
-//        public void deleteContact(Contact contact) {
-//            SQLiteDatabase db = this.getWritableDatabase();
-//            db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
-//                    new String[] { String.valueOf(contact.getID()) });
-//            db.close();
-//        }
-//
-//        // Getting contacts Count
-//        public int getContactsCount() {
-//            String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
-//            SQLiteDatabase db = this.getReadableDatabase();
-//            Cursor cursor = db.rawQuery(countQuery, null);
-//            cursor.close();
-//
-//            // return count
-//            return cursor.getCount();
-//        }
-//
-//    }
 
-    //    //Method to return a Song's values, based on the song's Id
-//    Song getSong(int id) {
-//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-//
-//        //Need to instantiate a Cursor
-//        //A cursor is a result set from a query operation in SQLite
-//        //Need to loop through the cursor items and process each line of the search result
-//        Cursor cursor = sqLiteDatabase.query(tableSongs, new String[] {
-//                keyId, keySong, keySinger, keyGenre, keyRating, keyDescription + " =?",
-//                new String[] {
-//                        String.valueOf(id)
-//                }, null, null, null, null, null, null);
-//        if (cursor!= null)
-//            cursor.moveToFirst();
-//
-//        Song song = new Song(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2), cursor.getString(), cursor.getString())
-//
-//        return song;
-//    }
+    //Method to update the rating of a song in the database
+    public void updateRating(int id, Float rating) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-//        // code to get the single contact
-//        Contact getContact(int id) {
-//            SQLiteDatabase db = this.getReadableDatabase();
-//
-//            Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-//                            KEY_NAME, KEY_PH_NO }, KEY_ID + "=?",
-//                    new String[] { String.valueOf(id) }, null, null, null, null);
-//            if (cursor != null)
-//                cursor.moveToFirst();
-//
-//            Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
-//                    cursor.getString(1), cursor.getString(2));
-//            // return contact
-//            return contact;
-//        }
-//
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SONG_RATING, rating);
 
+        //Update the rating of the Song, where the COLUMN_SONG_ID is equal to the parameter id
+        db.update(SONG_TABLE, cv,COLUMN_SONG_ID + "= ?", new String[] {Integer.toString(id)});
+    }
 }

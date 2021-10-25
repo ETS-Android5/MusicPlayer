@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -27,6 +29,13 @@ public class DetailActivity extends AppCompatActivity {
     Runnable runnable;
     Handler handler = new Handler();
     MediaPlayer mediaPlayer;
+
+    //For adjusting rating of Song
+    Button btnSave;
+    EditText txtRating;
+
+    //Need an instance of DatabaseHandler in order to update database values for each Song
+    DatabaseHandler databaseHandler = new DatabaseHandler(DetailActivity.this);
 
 
     @Override
@@ -217,6 +226,10 @@ public class DetailActivity extends AppCompatActivity {
         //Initialize button for integration with browser
         ImageButton mSearch = findViewById(R.id.btnSearch);
 
+        //Initialize save button to save changes to rating;
+        btnSave = findViewById(R.id.btnSave);
+        txtRating = findViewById(R.id.txtRating);
+
         //Initialize image
         ImageView imageView = findViewById(R.id.imgAlbum);
 
@@ -246,6 +259,25 @@ public class DetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com.au/search?q=" +
                         singer + " " + song));
                 startActivity(intent);
+            }
+        });
+
+
+
+        //Set an OnClickListener that changes the rating of the current Song in the database
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //When user clicks save, we change that song's rating in the database
+                //First obtain the text entered in the EditText
+                String s = txtRating.getText().toString();
+                System.out.println(s);
+                Float newRating = Float.parseFloat(s);
+                //Next, obtain the currentId
+                int id = MainActivity.intSong + 1;
+                //Then execute the updateRating method
+                databaseHandler.updateRating(id, newRating);
+
             }
         });
     }

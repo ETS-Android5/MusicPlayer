@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private SongAdapter myAdapter;
     private RecyclerView myRecyclerView;
 
+    //ArrayList to store objects
+    public static ArrayList<Song> songsDatabase = new ArrayList<>();
+
 
     //Method to convert bitmaps into byteArrays for BLOB storage
     public byte[] toBytesArray(int image) {
@@ -76,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
-        //for loop to add all existing songs to the database
-        //To prevent adding multiple times, we check if db exists already
 
+        //If the database has not yet been created, we need to create it and add the values in
+        //Use a for loop to go through all songs in songsTemp and add all existing songs to the database
         if (databaseExists(this, "SONGS.DB") == false) {
             //Arbitrary variable to do for loop to add arraylist items to database
             int i = 0;
@@ -89,24 +92,28 @@ public class MainActivity extends AppCompatActivity {
                         songsTemp.get(i).getGenre(),
                         songsTemp.get(i).getRating(),
                         songsTemp.get(i).getDescription(),
-                        toBytesArray(songsTemp.get(i).getImage())
+                        toBytesArray(songsTemp.get(i).getImage()),
+                        songsTemp.get(i).getPlays()
                 );
                 i += 1;
             }
-        }
-//        databaseHandler.addSong("Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", toBytesArray(R.drawable.image_1));
-//        databaseHandler.addSong("Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", toBytesArray(R.drawable.image_2));
-//        databaseHandler.addSong("C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", toBytesArray(R.drawable.image_1));
-//        databaseHandler.addSong("Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
-//        databaseHandler.addSong("Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
-//        databaseHandler.addSong("Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
-//        databaseHandler.addSong("Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_1));
-//        databaseHandler.addSong("Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", toBytesArray(R.drawable.image_2));
-////        for (Song song : songsTemp) {
-////            databaseHandler.addSong(song);
-////        }
-////        System.out.println("Songs Added");
+        } else {
+            //If the ddtabase already exists, we want to assign the values from our database into our arrayList
+            //Note, the only value that would change is the number of plays and the rating of the song
+            songsDatabase = databaseHandler.getSongs();
+            int i = 0;
+            for (Song song : songsDatabase) {
 
+                //Get the rating in the database of each song
+                int dbPlays = song.getPlays();
+                float dbRating = song.getRating();
+
+                //Set the rating of each song in songsTemp as the rating of each song in songsDatabase
+                songsTemp.get(i).setPlays(dbPlays);
+                //Increment by 1
+                i+=1;
+            }
+        }
 
         //Instantiate an onClickListener so that when a user clicks an item in our RecyclerView, user is taken to DetailActivity
         SongAdapter.ClickListener clickListener = new SongAdapter.ClickListener() {
