@@ -160,19 +160,46 @@ public class DetailActivity extends AppCompatActivity {
         btnFastForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //First Check if the user is looking at a different song, or the same song while music is playing
+                //If its a different song, first release the existing song so they don't loop
+                //Then, assign mediaPlayerCurrent to the mediaPlayer for the new song we want to play
+                //If the user is not playing a Song (i.e. the first time they load app) we assign our mediaPlayerCurrent to the one we create always
+                if (Song.isPlaying() == false) {
+                    mediaPlayerCurrent = mediaPlayer;
+                } else if (Song.isPlaying() && Song.getPlayingSongId() != Song.getCurrentSongId()) {
+                    //Otherwise, if a song is playing we need to stop the existing instance before assigning it, but only if it is a different song
+                    mediaPlayerCurrent.stop();
+                    mediaPlayerCurrent.release();
+                    mediaPlayerCurrent = mediaPlayer;
+                    //Otherwise, if the user is playing a Song, and it is the same song they clicked Play on previously...we just let it continue playing
+                } else {
+                    ;
+                }
                 //Get current position and duration of the mediaPlayer
                 int position = mediaPlayerCurrent.getCurrentPosition();
-
-                //Get the duration of the media player
-                //If the current position of the media player is not at the end, fast forward the song by 5 seconds
+                    //Get the duration of the media playe
+                    //If the current position of the media player is not at the end, fast forward the song by 5 seconds
                 int d = mediaPlayerCurrent.getDuration();
-                if (mediaPlayerCurrent.isPlaying() && position != d) {
+                if (position != d) {
                     //Note we are using milliseconds
                     position += 5000;
-
+                    mediaPlayerCurrent.start();
+                    //The user is playing a song
+                    Song.setIsPlaying(true);
                     //seek to 5 seconds ahead of current time and change the playerPosition's text to 5 seconds ahead
                     mediaPlayerCurrent.seekTo(position);
                     playerPosition.setText(convertFormat(position));
+
+                    //Remember which song is playing so we can compare Ids
+                    Song.setPlayingSongId(Song.getCurrentSongId());
+
+                    //Show the pause button but hide the play button
+                    btnPause.setVisibility(View.VISIBLE);
+                    btnPlay.setVisibility(View.GONE);
+
+                    //Assign maximum values on the as the duration of the music file
+                    seeker.setMax(mediaPlayerCurrent.getDuration());
+                    handler.postDelayed(runnable, 0);
                 }
             }
         });
@@ -188,7 +215,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 //If the song is at least 5 seconds in, we can rewind back by 5 seconds
                 if (mediaPlayerCurrent.isPlaying() && position > 5000) {
-                    position -=  5000;
+                    position -= 5000;
 
                     //Set the current progress on seekBar and change the TextView to the position of the player
                     mediaPlayerCurrent.seekTo(position);
@@ -207,6 +234,7 @@ public class DetailActivity extends AppCompatActivity {
                 //Check if the seeker position has been changed by the user
                 //If so, adjust media player to new position
                 if (seekerChanged) {
+                    //If playing same song, seek to new position
                     mediaPlayerCurrent.seekTo(newPosition);
                 }
                 //Change textView to reflect new position
