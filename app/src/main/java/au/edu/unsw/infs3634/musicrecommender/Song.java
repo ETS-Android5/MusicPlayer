@@ -17,9 +17,9 @@ public class Song {
     public static boolean playing = false;
 
 
-    //To check if user clicked on the same song which playing music
+    //To check if user clicked on the same song which is currently playing music
     public static int currentSongId;
-    public static int previousSongId;
+    public static int playingSongId;
 
     //Declare constructor
     public Song (int id, String song, String singer, String genre, float rating, String description, int image, int musicFile, int plays) {
@@ -138,12 +138,12 @@ public class Song {
         Song.currentSongId = currentSongId;
     }
 
-    public static int getPreviousSongId() {
-        return previousSongId;
+    public static int getPlayingSongId() {
+        return playingSongId;
     }
 
-    public static void setPreviousSongId(int previousSongId) {
-        Song.previousSongId = previousSongId;
+    public static void setPlayingSongId(int playingSongId) {
+        Song.playingSongId = playingSongId;
     }
 
 

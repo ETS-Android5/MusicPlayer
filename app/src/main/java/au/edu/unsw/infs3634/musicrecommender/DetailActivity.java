@@ -88,7 +88,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //Do a check to see if user is playing music currently, and clicked on the same song twice then we need to hide the Play button
         //And also ensure our seeker is in the original spot!
-        if ((Song.isPlaying() == true && Song.getPreviousSongId() == Song.getCurrentSongId())) {
+        if ((Song.isPlaying() == true && Song.getPlayingSongId() == Song.getCurrentSongId())) {
             btnPlay.setVisibility(View.GONE);
             btnPause.setVisibility(View.VISIBLE);
             seeker.setMax(mediaPlayerCurrent.getDuration());
@@ -112,7 +112,7 @@ public class DetailActivity extends AppCompatActivity {
                 //If the user is not playing a Song (i.e. the first time they load app) we assign our mediaPlayerCurrent to the one we create always
                 if (Song.isPlaying() == false) {
                     mediaPlayerCurrent = mediaPlayer;
-                } else if (Song.isPlaying() && Song.getPreviousSongId() != Song.getCurrentSongId()) {
+                } else if (Song.isPlaying() && Song.getPlayingSongId() != Song.getCurrentSongId()) {
                     //Otherwise, if a song is playing we need to stop the existing instance before assigning it, but only if it is a different song
                     mediaPlayerCurrent.stop();
                     mediaPlayerCurrent.release();
@@ -123,9 +123,11 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
                 mediaPlayerCurrent.start();
-
                 //The user has already played the song
                 Song.setIsPlaying(true);
+
+                //Remember which song is playing so we can compare Ids
+                Song.setPlayingSongId(Song.getCurrentSongId());
 
                 //Show the pause button but hide the play button
                 btnPause.setVisibility(View.VISIBLE);
@@ -134,19 +136,6 @@ public class DetailActivity extends AppCompatActivity {
                 //Assign maximum values on the as the duration of the music file
                 seeker.setMax(mediaPlayerCurrent.getDuration());
                 handler.postDelayed(runnable, 0);
-
-                // Retrieve the current number of plays of the currently selected song
-                int newPlays = MainActivity.songsTemp.get(MainActivity.intSong).getPlays() + 1;
-
-                //The id of our database starts from 1, so we add 1
-                int id = MainActivity.intSong + 1;
-
-                //Update play count in database by 1
-                databaseHandler.updatePlays(id, newPlays);
-                //Update songsTemp with the new Plays
-                databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
-                //Update the textView with the new amount
-                mPlays.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays()));
             }
         });
 
@@ -250,6 +239,19 @@ public class DetailActivity extends AppCompatActivity {
 
                 //Reset the position of the media player to 0
                 mediaPlayer.seekTo(0);
+
+                // Retrieve the current number of plays of the currently selected song
+                int newPlays = MainActivity.songsTemp.get(MainActivity.intSong).getPlays() + 1;
+
+                //The id of our database starts from 1, so we add 1
+                int id = MainActivity.intSong + 1;
+
+                //Update play count in database by 1
+                databaseHandler.updatePlays(id, newPlays);
+                //Update songsTemp with the new Plays
+                databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
+                //Update the textView with the new amount
+                mPlays.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays()));
             }
         });
 
@@ -340,10 +342,12 @@ public class DetailActivity extends AppCompatActivity {
         );
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        //When user presses back, the previous songId will be set to what we just clicked on before
-        Song.setPreviousSongId(Song.getCurrentSongId());
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        ///COPY THIS METHOD ONTO THE BACK BUTTON WHEN WE IMPLEMENT IT!
+//        //If the user is currently playing a song, then when user presses back, the previous songId will be set to what we just clicked on before
+//
+//        }
+//    }
 }
