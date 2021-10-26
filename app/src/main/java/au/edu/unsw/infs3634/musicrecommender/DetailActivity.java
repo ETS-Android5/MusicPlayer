@@ -22,7 +22,7 @@ public class DetailActivity extends AppCompatActivity {
 
     //Initialize components needed to play Songs
     ImageView btnRewind, btnPlay, btnFastForward, btnPause;
-    TextView playerPosition, playerDuration, mRating;
+    TextView playerPosition, playerDuration, mRating, mPlays;
     SeekBar seeker;
 
     //Need instance of MediaPlayer and Handlers and Runnables to stop and start songs
@@ -102,6 +102,19 @@ public class DetailActivity extends AppCompatActivity {
                 //Assign maximum values on the as the duration of the music file
                 seeker.setMax(mediaPlayer.getDuration());
                 handler.postDelayed(runnable, 0);
+
+                // Retrieve the current number of plays of the currently selected song
+                int newPlays = MainActivity.songsTemp.get(MainActivity.intSong).getPlays() + 1;
+
+                //The id of our database starts from 1, so we add 1
+                int id = MainActivity.intSong + 1;
+
+                //Update play count in database by 1
+                databaseHandler.updatePlays(id, newPlays);
+                //Update songsTemp with the new Plays
+                databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
+                //Update the textView with the new amount
+                mPlays.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays()));
             }
         });
 
@@ -221,6 +234,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView mSinger = findViewById(R.id.tvSinger);
         TextView mGenre = findViewById(R.id.tvGenre);
         mRating = findViewById(R.id.tvRating);
+        mPlays = findViewById(R.id.tvPlays);
         TextView mDescription = findViewById(R.id.tvDescription);
 
         //Initialize button for integration with browser
@@ -239,6 +253,7 @@ public class DetailActivity extends AppCompatActivity {
         String genre = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
         String rating = String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating());
         String description = MainActivity.songsTemp.get(MainActivity.intSong).getDescription();
+        String plays = String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays());
 
 
         //Set the text of the TextViews for Song, Singer, Genre and Rating
@@ -247,6 +262,7 @@ public class DetailActivity extends AppCompatActivity {
         mSinger.setText(singer);
         mGenre.setText(genre);
         mRating.setText(rating);
+        mPlays.setText(plays);
         mDescription.setText(description);
         imageView.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
 
@@ -279,10 +295,6 @@ public class DetailActivity extends AppCompatActivity {
                 databaseHandler.updateRating(id, newRating);
                 databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
                 mRating.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating()));
-//                finish();
-//                overridePendingTransition(0, 0);
-//                startActivity(getIntent());
-//                overridePendingTransition(0, 0);
             }
         });
     }

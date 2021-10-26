@@ -33,6 +33,12 @@ public class Song {
     }
 
 
+//    //A boolean stored in primary memory
+//    //When the user clicks on play the first time of a song, set to true
+//    //Set to false when the user leaves the detail activity and tries to play a different song
+//    public static boolean alreadyPlayed = false;
+
+
 
     //Declare getter and setters
 
@@ -108,6 +114,14 @@ public class Song {
     public void setPlays(int plays) {
         this.plays = plays;
     }
+
+//
+//    public static boolean isAlreadyPlayed() {
+//        return alreadyPlayed;
+//    }
+//
+//    public static void setAlreadyPlayed(boolean alreadyPlayed) {
+//        Song.alreadyPlayed = alreadyPlayed;
 
 
     public static ArrayList<Song> getSongs() {

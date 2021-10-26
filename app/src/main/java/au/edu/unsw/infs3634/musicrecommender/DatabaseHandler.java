@@ -163,6 +163,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.update(SONG_TABLE, cv,COLUMN_SONG_ID + "= ?", new String[] {Integer.toString(id)});
     }
 
+    //Method to update play count of a song in the database
+    public void updatePlays(int id, int plays) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SONG_PLAYS, plays);
+
+        //Update the rating of the Song, where the COLUMN_SONG_ID is equal to the parameter id
+        db.update(SONG_TABLE, cv,COLUMN_SONG_ID + "= ?", new String[] {Integer.toString(id)});
+    }
+
+
+
     //Refresh the data
     //Only 2 variables are tracked/modifiable so we just refresh them whenever something changes
     //songsDatabase is the database's returned songs whilst songsList is what we want to change i.e.g songsTemp

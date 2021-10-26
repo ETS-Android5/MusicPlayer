@@ -154,11 +154,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             Collections.sort(mSongsFiltered, new Comparator<Song>() {
                 @Override
                 public int compare(Song i1, Song i2) {
-                    //Depending on what integer is passed in, either compare song or singer value
+                    //Depending on what integer is passed in, either compare song, singer, genre or play count
                     if (sortApproach == 1) {
                         return i1.getSong().compareTo(i2.getSong());
                     } else if (sortApproach == 2) {
                         return i1.getSinger().compareTo(i2.getSinger());
+                    } else if (sortApproach == 3) {
                     }
                     // if unspecified, just sort by song
                     return i1.getSong().compareTo(i2.getSong());
