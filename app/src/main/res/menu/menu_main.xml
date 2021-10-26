@@ -7,11 +7,20 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/sortSong"
+                android:title="Song" />
+            <item
                 android:id="@+id/sortSinger"
                 android:title="Artist" />
             <item
-                android:id="@+id/sortSong"
-                android:title="Song" />
+                android:id="@+id/sortGenre"
+                android:title="Genre" />
+            <item
+                android:id="@+id/sortRating"
+                android:title="Rating" />
+            <item
+                android:id="@+id/sortPlays"
+                android:title="Most Played" />
         </menu>
     </item>
     <item

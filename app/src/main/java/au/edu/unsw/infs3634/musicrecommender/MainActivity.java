@@ -101,22 +101,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             songsDatabase = databaseHandler.getSongs();
             databaseHandler.refreshData(songsDatabase, songsTemp);
-//            //If the ddtabase already exists, we want to assign the values from our database into our arrayList
-//            //Note, the only value that would change is the number of plays and the rating of the song
-//            songsDatabase = databaseHandler.getSongs();
-//            int i = 0;
-//            for (Song song : songsDatabase) {
-//
-//                //Get the rating in the database of each song
-//                int dbPlays = song.getPlays();
-//                float dbRating = song.getRating();
-//
-//                //Set the rating of each song in songsTemp as the rating of each song in songsDatabase
-//                songsTemp.get(i).setPlays(dbPlays);
-//                songsTemp.get(i).setRating(dbRating);
-//                //Increment by 1
-//                i+=1;
-//            }
         }
 
         //Instantiate an onClickListener so that when a user clicks an item in our RecyclerView, user is taken to DetailActivity
@@ -183,6 +167,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sortSinger:
                 //If the id of the item was sortArtist, we sort by Artist
                 myAdapter.sort(2);
+                return true;
+            case R.id.sortGenre:
+                //If the id of the item was sortGenre, sort by Genre
+                myAdapter.sort(3);
+                return true;
+            case R.id.sortRating:
+                //If the id of the item was sortRating, we sort by Rating
+                myAdapter.sort(4);
+                return true;
+            case R.id.sortPlays:
+                //If the id of the item was sortPlays, sort by play count
+                myAdapter.sort(5);
                 return true;
             default:
                 //By default, if nothing is selected by user

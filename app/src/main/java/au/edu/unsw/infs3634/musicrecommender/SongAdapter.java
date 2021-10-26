@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.lang.Float;
 
 //SongAdapter is a subclass of the RecyclerView.Adapter<SongAdapter.MyViewHolder> class
 //... and implements the Filterable interface
@@ -154,12 +155,23 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             Collections.sort(mSongsFiltered, new Comparator<Song>() {
                 @Override
                 public int compare(Song i1, Song i2) {
-                    //Depending on what integer is passed in, either compare song, singer, genre or play count
+                    //Depending on what integer is passed in, compare song, singer, rating, genre or play count
                     if (sortApproach == 1) {
                         return i1.getSong().compareTo(i2.getSong());
+
                     } else if (sortApproach == 2) {
                         return i1.getSinger().compareTo(i2.getSinger());
+
                     } else if (sortApproach == 3) {
+                        return i1.getGenre().compareTo(i2.getGenre());
+
+                        //Note, for numeric data types, need to first convert into Float or Integer
+                    } else if (sortApproach == 4) {
+                        return Float.valueOf(i2.getRating()).compareTo(Float.valueOf(i1.getRating()));
+
+                    } else if (sortApproach == 5) {
+                        //Note, for numeric data types, need to first convert into Float or Integer
+                        return Integer.valueOf(i2.getPlays()).compareTo(Integer.valueOf(i1.getPlays()));
                     }
                     // if unspecified, just sort by song
                     return i1.getSong().compareTo(i2.getSong());
