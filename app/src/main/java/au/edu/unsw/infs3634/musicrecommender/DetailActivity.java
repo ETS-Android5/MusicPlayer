@@ -64,7 +64,11 @@ public class DetailActivity extends AppCompatActivity {
         //Need to create a new mediaPlayer always whenever we view Detail Activity
         mediaPlayer = MediaPlayer.create(this, MainActivity.songsTemp.get(MainActivity.intSong).getMusicFile());
 
-
+        //Convert the duration of the mediaPlayer into a String format so it can be displayed in TextViews
+        //Then set the duration TextView as the time remaining
+        int d = mediaPlayer.getDuration();
+        String duration = convertFormat(d);
+        playerDuration.setText(duration);
 
         //Initialize runnable so that the player can be run or stopped as required
         runnable = new Runnable() {
@@ -72,20 +76,26 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Set the progress on the seeker as the current position on the media player
-                seeker.setProgress(mediaPlayer.getCurrentPosition());
+                seeker.setProgress(mediaPlayerCurrent.getCurrentPosition());
                 //Handler post delay for 0.5 second
                 handler.postDelayed(this, 500);
             }
         };
 
+        //Remember ID of which song we're playing so we can check if we clicked the same song twice from MainActivity
+        Song.setCurrentSongId(MainActivity.songsTemp.get(MainActivity.intSong).getId());
+
+
+        //Do a check to see if user is playing music currently, and clicked on the same song twice
+        if ((Song.isPlaying() == true && Song.getPreviousSongId() == Song.getCurrentSongId())) {
+            btnPlay.setVisibility(View.GONE);
+            btnPause.setVisibility(View.VISIBLE);
+        }
 
 
 
-        //Convert the duration of the mediaPlayer into a String format so it can be displayed in TextViews
-        //Then set the duration TextView as the time remaining
-        int d = mediaPlayer.getDuration();
-        String duration = convertFormat(d);
-        playerDuration.setText(duration);
+
+
 
 
 
@@ -105,7 +115,6 @@ public class DetailActivity extends AppCompatActivity {
                     mediaPlayerCurrent.release();
                     mediaPlayerCurrent = mediaPlayer;
                 }
-
 
                 mediaPlayerCurrent.start();
 
@@ -154,7 +163,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-
         //When the user presses fast forward, the music is moved forward by 10 seconds
         btnFastForward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +183,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
 
@@ -200,7 +207,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-
         //Whenever the user adjusts the seeker, adjust both the song time and the TextView to the adjusted time
         seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -208,10 +214,10 @@ public class DetailActivity extends AppCompatActivity {
                 //Check if the seeker position has been changed by the user
                 //If so, adjust media player to new position
                 if (seekerChanged) {
-                    mediaPlayer.seekTo(newPosition);
+                    mediaPlayerCurrent.seekTo(newPosition);
                 }
-                //Change textView to reflecr new position
-                playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
+                //Change textView to reflect new position
+                playerPosition.setText(convertFormat(mediaPlayerCurrent.getCurrentPosition()));
             }
 
             @Override
@@ -234,6 +240,9 @@ public class DetailActivity extends AppCompatActivity {
             public void onCompletion(MediaPlayer mediaPlayer) {
                 btnPlay.setVisibility(View.VISIBLE);
                 btnPause.setVisibility(View.GONE);
+
+                //Set to false otherwise app will crash
+                Song.setIsPlaying(false);
 
                 //Reset the position of the media player to 0
                 mediaPlayer.seekTo(0);
@@ -325,5 +334,12 @@ public class DetailActivity extends AppCompatActivity {
                 "%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(duration),
                 TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
         );
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //When user presses back, the previous songId will be set to what we just clicked on before
+        Song.setPreviousSongId(Song.getCurrentSongId());
     }
 }
