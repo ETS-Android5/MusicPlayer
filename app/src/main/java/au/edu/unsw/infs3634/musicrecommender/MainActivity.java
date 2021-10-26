@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private SongAdapter myAdapter;
     private RecyclerView myRecyclerView;
 
-    //ArrayList to store objects
-    public static ArrayList<Song> songsDatabase = new ArrayList<>();
 
 
     //Method to convert bitmaps into byteArrays for BLOB storage
@@ -49,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
         byte[] bytesImage = stream.toByteArray();
         return bytesImage;
     }
+
+    //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
+    DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
+
+
+    //ArrayList to store objects
+    public static ArrayList<Song> songsDatabase = new ArrayList<>();
 
 
     @SuppressLint("WrongThread")
@@ -76,10 +81,6 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setLayoutManager(layoutManager);
 
 
-
-        //Need to instantiate DatabaseHandler so we can access databasehandler methods e.g. construct our database
-        DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
-
         //If the database has not yet been created, we need to create it and add the values in
         //Use a for loop to go through all songs in songsTemp and add all existing songs to the database
         if (databaseExists(this, "SONGS.DB") == false) {
@@ -98,21 +99,24 @@ public class MainActivity extends AppCompatActivity {
                 i += 1;
             }
         } else {
-            //If the ddtabase already exists, we want to assign the values from our database into our arrayList
-            //Note, the only value that would change is the number of plays and the rating of the song
             songsDatabase = databaseHandler.getSongs();
-            int i = 0;
-            for (Song song : songsDatabase) {
-
-                //Get the rating in the database of each song
-                int dbPlays = song.getPlays();
-                float dbRating = song.getRating();
-
-                //Set the rating of each song in songsTemp as the rating of each song in songsDatabase
-                songsTemp.get(i).setPlays(dbPlays);
-                //Increment by 1
-                i+=1;
-            }
+            databaseHandler.refreshData(songsDatabase, songsTemp);
+//            //If the ddtabase already exists, we want to assign the values from our database into our arrayList
+//            //Note, the only value that would change is the number of plays and the rating of the song
+//            songsDatabase = databaseHandler.getSongs();
+//            int i = 0;
+//            for (Song song : songsDatabase) {
+//
+//                //Get the rating in the database of each song
+//                int dbPlays = song.getPlays();
+//                float dbRating = song.getRating();
+//
+//                //Set the rating of each song in songsTemp as the rating of each song in songsDatabase
+//                songsTemp.get(i).setPlays(dbPlays);
+//                songsTemp.get(i).setRating(dbRating);
+//                //Increment by 1
+//                i+=1;
+//            }
         }
 
         //Instantiate an onClickListener so that when a user clicks an item in our RecyclerView, user is taken to DetailActivity
@@ -191,5 +195,12 @@ public class MainActivity extends AppCompatActivity {
     private static boolean databaseExists(Context context, String db) {
         File dbFile = context.getDatabasePath(db);
         return dbFile.exists();
+    }
+
+    //When user goes back to this activity, we just want to notify our adapter that the dataset has changed in order to refresh everything
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myAdapter.notifyDataSetChanged();
     }
 }

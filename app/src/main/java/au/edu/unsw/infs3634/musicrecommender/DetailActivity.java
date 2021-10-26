@@ -22,7 +22,7 @@ public class DetailActivity extends AppCompatActivity {
 
     //Initialize components needed to play Songs
     ImageView btnRewind, btnPlay, btnFastForward, btnPause;
-    TextView playerPosition, playerDuration;
+    TextView playerPosition, playerDuration, mRating;
     SeekBar seeker;
 
     //Need instance of MediaPlayer and Handlers and Runnables to stop and start songs
@@ -220,7 +220,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView mSong = findViewById(R.id.tvSong);
         TextView mSinger = findViewById(R.id.tvSinger);
         TextView mGenre = findViewById(R.id.tvGenre);
-        TextView mRating = findViewById(R.id.tvRating);
+        mRating = findViewById(R.id.tvRating);
         TextView mDescription = findViewById(R.id.tvDescription);
 
         //Initialize button for integration with browser
@@ -277,7 +277,12 @@ public class DetailActivity extends AppCompatActivity {
                 int id = MainActivity.intSong + 1;
                 //Then execute the updateRating method
                 databaseHandler.updateRating(id, newRating);
-
+                databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
+                mRating.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating()));
+//                finish();
+//                overridePendingTransition(0, 0);
+//                startActivity(getIntent());
+//                overridePendingTransition(0, 0);
             }
         });
     }

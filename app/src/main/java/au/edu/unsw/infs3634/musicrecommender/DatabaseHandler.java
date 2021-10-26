@@ -162,4 +162,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Update the rating of the Song, where the COLUMN_SONG_ID is equal to the parameter id
         db.update(SONG_TABLE, cv,COLUMN_SONG_ID + "= ?", new String[] {Integer.toString(id)});
     }
+
+    //Refresh the data
+    //Only 2 variables are tracked/modifiable so we just refresh them whenever something changes
+    //songsDatabase is the database's returned songs whilst songsList is what we want to change i.e.g songsTemp
+    public void refreshData(ArrayList<Song> songsDatabase, ArrayList<Song> songsList) {
+        int i = 0;
+        for (Song song : songsDatabase) {
+
+            //Get the rating in the database of each song
+            int dbPlays = song.getPlays();
+            float dbRating = song.getRating();
+
+            //Set the rating of each song in songsTemp as the rating of each song in songsDatabase
+            songsList.get(i).setPlays(dbPlays);
+            songsList.get(i).setRating(dbRating);
+            //Increment by 1
+            i += 1;
+        }
+    }
 }
