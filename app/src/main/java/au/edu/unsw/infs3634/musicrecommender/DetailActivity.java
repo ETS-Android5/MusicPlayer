@@ -86,10 +86,13 @@ public class DetailActivity extends AppCompatActivity {
         Song.setCurrentSongId(MainActivity.songsTemp.get(MainActivity.intSong).getId());
 
 
-        //Do a check to see if user is playing music currently, and clicked on the same song twice
+        //Do a check to see if user is playing music currently, and clicked on the same song twice then we need to hide the Play button
+        //And also ensure our seeker is in the original spot!
         if ((Song.isPlaying() == true && Song.getPreviousSongId() == Song.getCurrentSongId())) {
             btnPlay.setVisibility(View.GONE);
             btnPause.setVisibility(View.VISIBLE);
+            seeker.setMax(mediaPlayerCurrent.getDuration());
+            handler.postDelayed(runnable, 0);
         }
 
 
@@ -106,14 +109,17 @@ public class DetailActivity extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //If the user is not playing a Song we assign our mediaPlayerCurrent to the one we create always
+                //If the user is not playing a Song (i.e. the first time they load app) we assign our mediaPlayerCurrent to the one we create always
                 if (Song.isPlaying() == false) {
                     mediaPlayerCurrent = mediaPlayer;
-                } else {
-                    //Otherwise, if a song is playing we need to stop the existing instance before assigning it
+                } else if (Song.isPlaying() && Song.getPreviousSongId() != Song.getCurrentSongId()) {
+                    //Otherwise, if a song is playing we need to stop the existing instance before assigning it, but only if it is a different song
                     mediaPlayerCurrent.stop();
                     mediaPlayerCurrent.release();
                     mediaPlayerCurrent = mediaPlayer;
+                    //Otherwise, if the user is playing a Song, and it is the same song they clicked Play on previously...we just let it continue playing
+                } else {
+                    ;
                 }
 
                 mediaPlayerCurrent.start();
@@ -156,8 +162,6 @@ public class DetailActivity extends AppCompatActivity {
 
                 //Pause the media player and stop the handler
                 mediaPlayerCurrent.pause();
-                Song.setIsPlaying(false);
-                handler.removeCallbacks(runnable);
             }
         });
 
