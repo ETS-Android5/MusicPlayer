@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -109,6 +110,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
         holder.tvGenreItemRow.setText(song.getGenre());
         holder.tvRatingItemRow.setText(String.valueOf(song.getRating()));
         holder.itemView.setTag(songId);
+        holder.imgViewAlbum.setImageResource(song.getImage());
     }
 
     //Returns total number of items in ViewHolder
@@ -125,6 +127,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
         //Declare the attributes of our implementation of MyViewHolder
         //Specify the XML elements in our item row of our RecyclerView
         public TextView tvSongItemRow, tvSingerItemRow, tvGenreItemRow, tvRatingItemRow;
+        public ImageView imgViewAlbum;
         private ClickListener clickListener;
 
         //Declare constructor of our implementation of MyViewHolder
@@ -138,6 +141,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             tvSingerItemRow = itemView.findViewById(R.id.tvSingerItemRow);
             tvGenreItemRow = itemView.findViewById(R.id.tvGenreItemRow);
             tvRatingItemRow = itemView.findViewById((R.id.tvRatingItemRow));
+            imgViewAlbum = itemView.findViewById(R.id.imgViewAlbum);
         }
 
         //Specify onClick behaviour when user clicks on the ViewHolder

@@ -14,6 +14,7 @@ public class Song {
     private int image;
     private int musicFile;
     private int plays;
+    public static boolean playing = false;
 
     //Declare constructor
     public Song (int id, String song, String singer, String genre, float rating, String description, int image, int musicFile, int plays) {
@@ -115,13 +116,14 @@ public class Song {
         this.plays = plays;
     }
 
-//
-//    public static boolean isAlreadyPlayed() {
-//        return alreadyPlayed;
-//    }
-//
-//    public static void setAlreadyPlayed(boolean alreadyPlayed) {
-//        Song.alreadyPlayed = alreadyPlayed;
+
+    public static boolean isPlaying() {
+        return playing;
+    }
+
+    public static void setIsPlaying(boolean playing) {
+        Song.playing = playing;
+    }
 
 
     public static ArrayList<Song> getSongs() {

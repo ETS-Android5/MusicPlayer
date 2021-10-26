@@ -15,8 +15,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="4dp"
         android:text="Song"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintStart_toEndOf="@+id/imgViewAlbum"
+        app:layout_constraintTop_toTopOf="@+id/imgViewAlbum" />
 
     <TextView
         android:id="@+id/tvSingerItemRow"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/tvSongItemRow" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgViewAlbum"
         android:layout_width="69dp"
         android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="parent"

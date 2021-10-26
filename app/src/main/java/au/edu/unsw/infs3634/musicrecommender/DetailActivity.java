@@ -28,7 +28,9 @@ public class DetailActivity extends AppCompatActivity {
     //Need instance of MediaPlayer and Handlers and Runnables to stop and start songs
     Runnable runnable;
     Handler handler = new Handler();
-    MediaPlayer mediaPlayer;
+
+    //Static means there can be only one instance of each variable
+    public static MediaPlayer mediaPlayer, mediaPlayerCurrent;
 
     //For adjusting rating of Song
     Button btnSave;
@@ -59,9 +61,8 @@ public class DetailActivity extends AppCompatActivity {
         btnFastForward = findViewById(R.id.btnFastForward);
         btnPause = findViewById(R.id.btnPause);
 
-        //Create our Media Player and set it to play the music file of our Song
+        //Need to create a new mediaPlayer always whenever we view Detail Activity
         mediaPlayer = MediaPlayer.create(this, MainActivity.songsTemp.get(MainActivity.intSong).getMusicFile());
-
 
 
 
@@ -90,17 +91,33 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
+
         //Pressing play will start the media player and hide the play button but shows the pause button
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.start();
+                //If the user is not playing a Song we assign our mediaPlayerCurrent to the one we create always
+                if (Song.isPlaying() == false) {
+                    mediaPlayerCurrent = mediaPlayer;
+                } else {
+                    //Otherwise, if a song is playing we need to stop the existing instance before assigning it
+                    mediaPlayerCurrent.stop();
+                    mediaPlayerCurrent.release();
+                    mediaPlayerCurrent = mediaPlayer;
+                }
+
+
+                mediaPlayerCurrent.start();
+
+                //The user has already played the song
+                Song.setIsPlaying(true);
+
                 //Show the pause button but hide the play button
                 btnPause.setVisibility(View.VISIBLE);
                 btnPlay.setVisibility(View.GONE);
 
                 //Assign maximum values on the as the duration of the music file
-                seeker.setMax(mediaPlayer.getDuration());
+                seeker.setMax(mediaPlayerCurrent.getDuration());
                 handler.postDelayed(runnable, 0);
 
                 // Retrieve the current number of plays of the currently selected song
@@ -129,7 +146,8 @@ public class DetailActivity extends AppCompatActivity {
                 btnPause.setVisibility(View.GONE);
 
                 //Pause the media player and stop the handler
-                mediaPlayer.pause();
+                mediaPlayerCurrent.pause();
+                Song.setIsPlaying(false);
                 handler.removeCallbacks(runnable);
             }
         });
@@ -142,17 +160,17 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Get current position and duration of the mediaPlayer
-                int position = mediaPlayer.getCurrentPosition();
+                int position = mediaPlayerCurrent.getCurrentPosition();
 
                 //Get the duration of the media player
                 //If the current position of the media player is not at the end, fast forward the song by 5 seconds
-                int d = mediaPlayer.getDuration();
-                if (mediaPlayer.isPlaying() && position != d) {
+                int d = mediaPlayerCurrent.getDuration();
+                if (mediaPlayerCurrent.isPlaying() && position != d) {
                     //Note we are using milliseconds
                     position += 5000;
 
                     //seek to 5 seconds ahead of current time and change the playerPosition's text to 5 seconds ahead
-                    mediaPlayer.seekTo(position);
+                    mediaPlayerCurrent.seekTo(position);
                     playerPosition.setText(convertFormat(position));
                 }
             }
@@ -166,14 +184,14 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Get current position
-                int position = mediaPlayer.getCurrentPosition();
+                int position = mediaPlayerCurrent.getCurrentPosition();
 
                 //If the song is at least 5 seconds in, we can rewind back by 5 seconds
-                if (mediaPlayer.isPlaying() && position > 5000) {
+                if (mediaPlayerCurrent.isPlaying() && position > 5000) {
                     position -=  5000;
 
                     //Set the current progress on seekBar and change the TextView to the position of the player
-                    mediaPlayer.seekTo(position);
+                    mediaPlayerCurrent.seekTo(position);
                     playerPosition.setText(convertFormat(position));
 
                 }
