@@ -4,53 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="#FFC107"
-    android:padding="10dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="#673AB7"
+    android:padding="7dp">
 
     <TextView
         android:id="@+id/tvSongItemRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="100dp"
+        android:layout_height="18sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="3dp"
+        android:gravity="left|center_vertical"
         android:text="Song"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgViewAlbum"
         app:layout_constraintStart_toEndOf="@+id/imgViewAlbum"
-        app:layout_constraintTop_toTopOf="@+id/imgViewAlbum" />
+        app:layout_constraintTop_toTopOf="@+id/imgViewAlbum"
+        app:layout_constraintVertical_bias="0.066" />
 
     <TextView
         android:id="@+id/tvSingerItemRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="100dp"
+        android:layout_height="18sp"
+        android:layout_marginTop="6dp"
+        android:gravity="left|center_vertical"
         android:text="Singer"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="@+id/tvSongItemRow"
         app:layout_constraintTop_toBottomOf="@+id/tvSongItemRow" />
 
     <TextView
         android:id="@+id/tvGenreItemRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="100sp"
+        android:layout_height="18sp"
+        android:gravity="left|center_vertical"
         android:text="Genre"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="@+id/tvRatingItemRow"
         app:layout_constraintTop_toTopOf="@+id/tvSingerItemRow" />
 
     <TextView
         android:id="@+id/tvRatingItemRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="100dp"
+        android:layout_height="18sp"
+        android:layout_marginEnd="4dp"
+        android:gravity="left|center_vertical"
         android:text="Rating"
-        app:layout_constraintStart_toEndOf="@+id/tvSongItemRow"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvSongItemRow" />
 
     <ImageView
         android:id="@+id/imgViewAlbum"
-        android:layout_width="69dp"
-        android:layout_height="57dp"
+        android:layout_width="53dp"
+        android:layout_height="51dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRatingItemRow"
+        app:layout_constraintEnd_toStartOf="@+id/tvRatingItemRow"
+        app:layout_constraintTop_toTopOf="@+id/tvRatingItemRow"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/icon_love" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSingerItemRow"
+        app:layout_constraintEnd_toStartOf="@+id/tvSingerItemRow"
+        app:layout_constraintTop_toTopOf="@+id/tvSingerItemRow"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/icon_artist" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSongItemRow"
+        app:layout_constraintEnd_toStartOf="@+id/tvSongItemRow"
+        app:layout_constraintTop_toTopOf="@+id/tvSongItemRow"
+        app:srcCompat="@drawable/icon_song" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvGenreItemRow"
+        app:layout_constraintEnd_toStartOf="@+id/tvGenreItemRow"
+        app:layout_constraintTop_toTopOf="@+id/tvGenreItemRow"
+        app:layout_constraintVertical_bias="0.926"
+        app:srcCompat="@drawable/icon_genre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

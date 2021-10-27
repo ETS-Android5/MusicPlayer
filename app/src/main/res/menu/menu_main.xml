@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="SORT"
+        android:icon="@android:drawable/arrow_down_float"
+        android:title="Sort By"
         app:showAsAction="always">
         <menu>
             <item
