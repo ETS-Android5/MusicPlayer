@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,101 +8,100 @@
     tools:layout_editor_absoluteY="55dp">
 
     <TextView
-        android:id="@+id/textSong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="Song:"
-        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
-        app:layout_constraintTop_toBottomOf="@+id/seeker" />
-
-    <TextView
         android:id="@+id/tvSong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:text="Song Name"
-        app:layout_constraintStart_toEndOf="@+id/textSong"
-        app:layout_constraintTop_toTopOf="@+id/textSong" />
+        android:layout_width="235dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center|center_vertical"
+        android:text="Song"
+        android:textAlignment="gravity"
+        android:textColor="#673AB7"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
+        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
+        app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+
+   <TextView
+       android:id="@+id/tvRating"
+       android:layout_width="110dp"
+       android:layout_height="25dp"
+       android:layout_marginTop="75dp"
+       android:gravity="left|center_vertical"
+       android:text="Rating"
+       android:textAlignment="gravity"
+       android:textColor="#673AB7"
+       app:layout_constraintStart_toStartOf="@+id/btnRewind"
+       app:layout_constraintTop_toBottomOf="@+id/seeker" />
 
     <TextView
-        android:id="@+id/textGenre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Genre:"
-        app:layout_constraintStart_toStartOf="@+id/textRating"
-        app:layout_constraintTop_toBottomOf="@+id/textRating" />
+        android:id="@+id/tvPlays"
+        android:layout_width="55dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center_vertical"
+        android:text="Plays"
+        android:textAlignment="gravity"
+        android:textColor="#673AB7"
+        app:layout_constraintStart_toStartOf="@+id/tvGenre"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
 
     <TextView
         android:id="@+id/tvGenre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center_vertical"
         android:text="Genre"
+        android:textAlignment="gravity"
+        android:textColor="#673AB7"
         app:layout_constraintStart_toStartOf="@+id/tvRating"
-        app:layout_constraintTop_toTopOf="@+id/textGenre" />
-
-    <TextView
-        android:id="@+id/textRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Rating:"
-        app:layout_constraintStart_toStartOf="@+id/textArtist"
-        app:layout_constraintTop_toBottomOf="@+id/textArtist" />
-
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rating"
-        app:layout_constraintStart_toStartOf="@+id/tvSinger"
-        app:layout_constraintTop_toTopOf="@+id/textRating" />
-
-    <TextView
-        android:id="@+id/textArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Artist:"
-        app:layout_constraintStart_toStartOf="@+id/textSong"
-        app:layout_constraintTop_toBottomOf="@+id/textSong" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 
     <TextView
         android:id="@+id/tvSinger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Singer Name"
-        app:layout_constraintStart_toStartOf="@+id/tvSong"
-        app:layout_constraintTop_toTopOf="@+id/textArtist" />
+        android:layout_width="235dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Artist"
+        android:textAlignment="gravity"
+        android:textColor="#673AB7"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
+        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
+        app:layout_constraintTop_toBottomOf="@+id/tvSong" />
 
     <ImageView
         android:id="@+id/imgAlbum"
         android:layout_width="235dp"
-        android:layout_height="257dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="235dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="232dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="239dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="20dp"
         android:text="This is a sample description"
-        app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
-        app:layout_constraintTop_toBottomOf="@+id/textGenre" />
+        android:textColor="#673AB7"
+        app:layout_constraintEnd_toEndOf="@+id/seeker"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="@+id/seeker"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlays" />
 
     <ImageButton
         android:id="@+id/btnSearch"
         android:layout_width="41dp"
         android:layout_height="45dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="15dp"
         android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSinger"
         app:layout_constraintStart_toEndOf="@+id/tvSong"
         app:layout_constraintTop_toTopOf="@+id/tvSong"
         app:srcCompat="@drawable/ic_search_black_24dp" />
@@ -111,18 +110,19 @@
         android:id="@+id/seeker"
         android:layout_width="240dp"
         android:layout_height="17dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvSinger"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="@+id/tvSinger"
+        app:layout_constraintTop_toBottomOf="@+id/tvSinger" />
 
     <TextView
         android:id="@+id/tvPlayerPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="10dp"
         android:text="00:00"
+        android:textColor="#673AB7"
         app:layout_constraintEnd_toStartOf="@+id/seeker"
         app:layout_constraintTop_toTopOf="@+id/seeker" />
 
@@ -130,93 +130,105 @@
         android:id="@+id/tvPlayerDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="336dp"
+        android:layout_marginStart="10dp"
         android:text="00:00"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#673AB7"
+        app:layout_constraintStart_toEndOf="@+id/seeker"
         app:layout_constraintTop_toTopOf="@+id/seeker" />
 
-    <ImageView
-        android:id="@+id/btnPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seeker"
-        app:srcCompat="@drawable/icon_play" />
+   <ImageView
+       android:id="@+id/btnPlay"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="20dp"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.498"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/seeker"
+       app:srcCompat="@drawable/icon_play" />
 
-    <ImageView
-        android:id="@+id/btnPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seeker"
-        app:srcCompat="@drawable/icon_pause" />
+   <ImageView
+       android:id="@+id/btnPause"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="20dp"
+       android:visibility="gone"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/seeker"
+       app:srcCompat="@drawable/icon_pause" />
 
-    <ImageView
-        android:id="@+id/btnFastForward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        app:layout_constraintStart_toEndOf="@+id/btnPlay"
-        app:layout_constraintTop_toTopOf="@+id/btnPlay"
-        app:srcCompat="@drawable/icon_fast_forward" />
+   <ImageView
+       android:id="@+id/btnFastForward"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="20dp"
+       app:layout_constraintEnd_toEndOf="@+id/seeker"
+       app:layout_constraintTop_toBottomOf="@+id/seeker"
+       app:srcCompat="@drawable/icon_fast_forward" />
 
-    <ImageView
-        android:id="@+id/btnRewind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
-        app:layout_constraintTop_toTopOf="@+id/btnPlay"
-        app:srcCompat="@drawable/icon_rewind" />
+   <ImageView
+       android:id="@+id/btnRewind"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="20dp"
+       app:layout_constraintStart_toStartOf="@+id/seeker"
+       app:layout_constraintTop_toBottomOf="@+id/seeker"
+       app:srcCompat="@drawable/icon_rewind" />
 
     <EditText
         android:id="@+id/txtRating"
-        android:layout_width="93dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="72dp"
+        android:layout_height="25dp"
         android:ems="10"
         android:hint="New rating"
         android:inputType="numberDecimal"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/tvRating"
+        android:textSize="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnFastForward"
         app:layout_constraintTop_toTopOf="@+id/tvRating" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="70dp"
         android:layout_height="39dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
         android:text="Save"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/txtRating"
         app:layout_constraintTop_toBottomOf="@+id/txtRating" />
 
-    <TextView
-        android:id="@+id/tvPlays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Plays"
-        app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
-        app:layout_constraintHorizontal_bias="0.174"
-        app:layout_constraintStart_toStartOf="@+id/imgAlbum"
-        app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRating"
+        app:layout_constraintEnd_toStartOf="@+id/tvRating"
+        app:layout_constraintTop_toTopOf="@+id/tvRating"
+        app:srcCompat="@drawable/icon_love"
+        app:tint="#673AB7" />
 
-    <TextView
-        android:id="@+id/tvPlays2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Plays"
-        app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
-        app:layout_constraintHorizontal_bias="0.272"
-        app:layout_constraintStart_toEndOf="@+id/tvPlays"
-        app:layout_constraintTop_toTopOf="@+id/tvPlays" />
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvGenre"
+        app:layout_constraintEnd_toStartOf="@+id/tvGenre"
+        app:layout_constraintTop_toTopOf="@+id/tvGenre"
+        app:srcCompat="@drawable/icon_genre"
+        app:tint="#673AB7" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlays"
+        app:layout_constraintEnd_toStartOf="@+id/tvPlays"
+        app:layout_constraintTop_toTopOf="@+id/tvPlays"
+        app:srcCompat="@drawable/icon_plays"
+        app:tint="#673AB7"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_love.xml" value="0.4203125" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_music.xml" value="0.4161458333333333" />
-        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/activity_detail.xml" value="0.4" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_pause.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_play.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/activity_detail.xml" value="0.6" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/activity_main.xml" value="0.4041666666666667" />
-        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/item_row.xml" value="0.72" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/item_row.xml" value="0.6" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/menu/menu_main.xml" value="0.4041666666666667" />
       </map>
     </option>

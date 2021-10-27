@@ -321,7 +321,8 @@ public class DetailActivity extends AppCompatActivity {
                 //Update songsTemp with the new Plays
                 databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
                 //Update the textView with the new amount
-                mPlays.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays()));
+                int playCount = MainActivity.songsTemp.get(MainActivity.intSong).getPlays();
+                mPlays.setText(String.valueOf(playCount) + " Plays");
             }
         });
 
@@ -353,7 +354,7 @@ public class DetailActivity extends AppCompatActivity {
         //Initialize string values
         String song = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
         String singer = MainActivity.songsTemp.get(MainActivity.intSong).getSinger();
-        String genre = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
+        String genre = MainActivity.songsTemp.get(MainActivity.intSong).getGenre();
         String rating = String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating());
         String description = MainActivity.songsTemp.get(MainActivity.intSong).getDescription();
         String plays = String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays());
@@ -365,7 +366,7 @@ public class DetailActivity extends AppCompatActivity {
         mSinger.setText(singer);
         mGenre.setText(genre);
         mRating.setText(rating);
-        mPlays.setText(plays);
+        mPlays.setText(plays + " Plays");
         mDescription.setText(description);
         imageView.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
 
