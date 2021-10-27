@@ -111,6 +111,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
         holder.tvRatingItemRow.setText(String.valueOf(song.getRating()));
         holder.itemView.setTag(songId);
         holder.imgViewAlbum.setImageResource(song.getImage());
+        //If a song is currently playing, and the playing song's id matches this song's id, we show the playing icon and textview
+        if (Song.isPlaying() == true && Song.getPlayingSongId() == song.getId()) {
+            holder.imgViewPlaying.setVisibility(View.VISIBLE);
+            holder.tvPlaying.setVisibility(View.VISIBLE);
+        } else {
+            ;
+        }
     }
 
     //Returns total number of items in ViewHolder
@@ -126,9 +133,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
 
         //Declare the attributes of our implementation of MyViewHolder
         //Specify the XML elements in our item row of our RecyclerView
-        public TextView tvSongItemRow, tvSingerItemRow, tvGenreItemRow, tvRatingItemRow;
+        public TextView tvSongItemRow, tvSingerItemRow, tvGenreItemRow, tvRatingItemRow, tvPlaying;
         public ImageView imgViewAlbum;
         private ClickListener clickListener;
+        private ImageView imgViewPlaying;
 
         //Declare constructor of our implementation of MyViewHolder
         public MyViewHolder(@NonNull View itemView, ClickListener clickListener) {
@@ -142,6 +150,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             tvGenreItemRow = itemView.findViewById(R.id.tvGenreItemRow);
             tvRatingItemRow = itemView.findViewById((R.id.tvRatingItemRow));
             imgViewAlbum = itemView.findViewById(R.id.imgViewAlbum);
+            tvPlaying = itemView.findViewById(R.id.tvPlaying);
+            imgViewPlaying = itemView.findViewById(R.id.imgViewPlaying);
         }
 
         //Specify onClick behaviour when user clicks on the ViewHolder
