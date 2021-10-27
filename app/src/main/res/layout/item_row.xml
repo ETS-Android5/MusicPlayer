@@ -45,7 +45,7 @@
     <TextView
         android:id="@+id/tvGenreItemRow"
         style="@style/Widget.AppCompat.TextView"
-        android:layout_width="100sp"
+        android:layout_width="80dp"
         android:layout_height="18sp"
         android:gravity="left|center_vertical"
         android:text="Genre"
@@ -58,9 +58,9 @@
     <TextView
         android:id="@+id/tvRatingItemRow"
         style="@style/Widget.AppCompat.TextView"
-        android:layout_width="100dp"
-        android:layout_height="18sp"
-        android:layout_marginEnd="4dp"
+        android:layout_width="80dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="55dp"
         android:gravity="left|center_vertical"
         android:text="Rating"
         android:textAlignment="gravity"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tvRatingItemRow"
         app:layout_constraintTop_toTopOf="@+id/tvRatingItemRow"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/icon_love" />
+        app:srcCompat="@drawable/icon_rating" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -128,5 +128,28 @@
         app:layout_constraintTop_toTopOf="@+id/tvGenreItemRow"
         app:layout_constraintVertical_bias="0.926"
         app:srcCompat="@drawable/icon_genre" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_play"
+        app:tint="#FF03DAC5" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Playing"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

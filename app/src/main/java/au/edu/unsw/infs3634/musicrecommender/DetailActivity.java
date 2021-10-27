@@ -3,6 +3,7 @@ package au.edu.unsw.infs3634.musicrecommender;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class DetailActivity extends AppCompatActivity {
     ImageView btnRewind, btnPlay, btnFastForward, btnPause;
     TextView playerPosition, playerDuration, mRating, mPlays;
     SeekBar seeker;
+    RatingBar ratingBar;
 
     //Need instance of MediaPlayer and Handlers and Runnables to stop and start songs
     Runnable runnable;
@@ -60,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         btnRewind = findViewById(R.id.btnRewind);
         btnFastForward = findViewById(R.id.btnFastForward);
         btnPause = findViewById(R.id.btnPause);
+        ratingBar = findViewById(R.id.ratingSong);
 
         //Need to create a new mediaPlayer always whenever we view Detail Activity
         mediaPlayer = MediaPlayer.create(this, MainActivity.songsTemp.get(MainActivity.intSong).getMusicFile());
@@ -346,7 +350,6 @@ public class DetailActivity extends AppCompatActivity {
 
         //Initialize save button to save changes to rating;
         btnSave = findViewById(R.id.btnSave);
-        txtRating = findViewById(R.id.txtRating);
 
         //Initialize image
         ImageView imageView = findViewById(R.id.imgAlbum);
@@ -366,6 +369,7 @@ public class DetailActivity extends AppCompatActivity {
         mSinger.setText(singer);
         mGenre.setText(genre);
         mRating.setText(rating);
+        ratingBar.setRating(Float.parseFloat(rating));
         mPlays.setText(plays + " Plays");
         mDescription.setText(description);
         imageView.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
@@ -384,21 +388,19 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
+
         //Set an OnClickListener that changes the rating of the current Song in the database
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onClick(View view) {
-                //When user clicks save, we change that song's rating in the database
-                //First obtain the text entered in the EditText
-                String s = txtRating.getText().toString();
-                System.out.println(s);
-                Float newRating = Float.parseFloat(s);
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                Float newRating = Float.parseFloat(String.valueOf(ratingBar.getRating()));
                 //Next, obtain the currentId
                 int id = MainActivity.intSong + 1;
                 //Then execute the updateRating method
                 databaseHandler.updateRating(id, newRating);
                 databaseHandler.refreshData(databaseHandler.getSongs(), MainActivity.songsTemp);
-                mRating.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getRating()));
+                ratingBar.setRating(newRating);
+                mRating.setText(String.valueOf(newRating));
             }
         });
     }
