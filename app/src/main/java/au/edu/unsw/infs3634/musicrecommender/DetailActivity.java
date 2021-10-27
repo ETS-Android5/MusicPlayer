@@ -82,8 +82,14 @@ public class DetailActivity extends AppCompatActivity {
             }
         };
 
+        //Seeker and rewind disabled by default
+        seeker.setEnabled(false);
+        btnRewind.setEnabled(false);
+
         //Remember ID of which song we're playing so we can check if we clicked the same song twice from MainActivity
         Song.setCurrentSongId(MainActivity.songsTemp.get(MainActivity.intSong).getId());
+        //When user first clicks on on any Song, it is disabled until they click on Play, Fast Forward or Rewind
+
 
 
         //Do a check to see if user is playing music currently, and clicked on the same song twice then we need to hide the Play button
@@ -91,8 +97,14 @@ public class DetailActivity extends AppCompatActivity {
         if ((Song.isPlaying() == true && Song.getPlayingSongId() == Song.getCurrentSongId())) {
             btnPlay.setVisibility(View.GONE);
             btnPause.setVisibility(View.VISIBLE);
+            //Enable our seeker and rewind button, if user is going back to same song they are already playing.
+            seeker.setEnabled(true);
+            btnRewind.setEnabled(true);
+
             seeker.setMax(mediaPlayerCurrent.getDuration());
             handler.postDelayed(runnable, 0);
+        } else {
+            ;
         }
 
 
@@ -109,6 +121,10 @@ public class DetailActivity extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Immediately enable the Seeker and Rewind Buttons
+                seeker.setEnabled(true);
+                btnRewind.setEnabled(true);
+
                 //If the user is not playing a Song (i.e. the first time they load app) we assign our mediaPlayerCurrent to the one we create always
                 if (Song.isPlaying() == false) {
                     mediaPlayerCurrent = mediaPlayer;
@@ -149,6 +165,10 @@ public class DetailActivity extends AppCompatActivity {
                 btnPlay.setVisibility(View.VISIBLE);
                 btnPause.setVisibility(View.GONE);
 
+                //Ensure our seeker and rewind button are enabled so they function properly
+                seeker.setEnabled(true);
+                btnRewind.setEnabled(true);
+
                 //Pause the media player and stop the handler
                 mediaPlayerCurrent.pause();
             }
@@ -175,6 +195,11 @@ public class DetailActivity extends AppCompatActivity {
                 } else {
                     ;
                 }
+
+                //Immediately enable our seeker and rewind buttons
+                seeker.setEnabled(true);
+                btnRewind.setEnabled(true);
+
                 //Get current position and duration of the mediaPlayer
                 int position = mediaPlayerCurrent.getCurrentPosition();
                     //Get the duration of the media playe
@@ -210,6 +235,17 @@ public class DetailActivity extends AppCompatActivity {
         btnRewind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //If the song is a different song, it will be at 0, so disable the btnRewind Button
+                if (Song.getPlayingSongId() != Song.getCurrentSongId()) {
+                    btnRewind.setEnabled(false);
+                } else if (Song.getCurrentSongId() == Song.getCurrentSongId()) {
+                    //Otherwise if it is the same song
+                    btnRewind.setEnabled(true);
+                } else {
+                    //Otherwise user has not clicked Play on any song yet
+                    btnRewind.setEnabled(false);
+                }
+
                 //Get current position
                 int position = mediaPlayerCurrent.getCurrentPosition();
 
