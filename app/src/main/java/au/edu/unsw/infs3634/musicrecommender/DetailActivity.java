@@ -249,11 +249,16 @@ public class DetailActivity extends AppCompatActivity {
                 //Get current position
                 int position = mediaPlayerCurrent.getCurrentPosition();
 
+                //Show the pause button but hide the play button
+                btnPause.setVisibility(View.VISIBLE);
+                btnPlay.setVisibility(View.GONE);
+
                 //If the song is at least 5 seconds in, we can rewind back by 5 seconds
-                if (mediaPlayerCurrent.isPlaying() && position > 5000) {
+                if (position > 5000) {
                     position -= 5000;
 
                     //Set the current progress on seekBar and change the TextView to the position of the player
+                    mediaPlayerCurrent.start();
                     mediaPlayerCurrent.seekTo(position);
                     playerPosition.setText(convertFormat(position));
 
