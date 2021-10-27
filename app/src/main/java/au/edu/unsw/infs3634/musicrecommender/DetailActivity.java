@@ -107,9 +107,20 @@ public class DetailActivity extends AppCompatActivity {
 
             seeker.setMax(mediaPlayerCurrent.getDuration());
             handler.postDelayed(runnable, 0);
+        } else if ((Song.isPlaying() == false && Song.getPlayingSongId() == Song.getCurrentSongId())) {
+            //If the song was paused, but user clicked on the same song, then hide the pause button, and show the play button
+            btnPlay.setVisibility(View.VISIBLE);
+            btnPause.setVisibility(View.GONE);
+
+            seeker.setEnabled(true);
+            btnRewind.setEnabled(true);
+
+            seeker.setMax(mediaPlayerCurrent.getDuration());
+            handler.postDelayed(runnable, 0);
         } else {
             ;
         }
+
 
 
 
@@ -130,18 +141,24 @@ public class DetailActivity extends AppCompatActivity {
                 btnRewind.setEnabled(true);
 
                 //If the user is not playing a Song (i.e. the first time they load app) we assign our mediaPlayerCurrent to the one we create always
-                if (Song.isPlaying() == false) {
+                if (Song.isPlaying() == false && Song.getPlayingSongId() != Song.getCurrentSongId() ) {
                     mediaPlayerCurrent = mediaPlayer;
-                } else if (Song.isPlaying() && Song.getPlayingSongId() != Song.getCurrentSongId()) {
+
                     //Otherwise, if a song is playing we need to stop the existing instance before assigning it, but only if it is a different song
+                } else if (Song.isPlaying() && Song.getPlayingSongId() != Song.getCurrentSongId()) {
                     mediaPlayerCurrent.stop();
                     mediaPlayerCurrent.release();
                     mediaPlayerCurrent = mediaPlayer;
-                    //Otherwise, if the user is playing a Song, and it is the same song they clicked Play on previously...we just let it continue playing
+
+                    //Otherwise, if the user is playing a Song, and it is the same song they clicked play on previously AND it has been paused
+                    //...we just let it continue playing
+                } else if (Song.isPlaying() == false && Song.getPlayingSongId() == Song.getCurrentSongId() ) {
+                    mediaPlayerCurrent.start();
                 } else {
                     ;
                 }
 
+                //Regardless, we let the player continue running at the end
                 mediaPlayerCurrent.start();
                 //The user has already played the song
                 Song.setIsPlaying(true);
@@ -168,6 +185,9 @@ public class DetailActivity extends AppCompatActivity {
                 //Show the play button but hide the pause button
                 btnPlay.setVisibility(View.VISIBLE);
                 btnPause.setVisibility(View.GONE);
+
+                //Set song is playing to false
+                Song.setIsPlaying(false);
 
                 //Ensure our seeker and rewind button are enabled so they function properly
                 seeker.setEnabled(true);
