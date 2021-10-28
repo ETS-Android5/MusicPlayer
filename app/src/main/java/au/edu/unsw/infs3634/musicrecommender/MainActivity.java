@@ -28,8 +28,19 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     //This attribute is used to track which song was clicked on by the user in the xml
     public static int intSong;
+
+    //If user wishes to set intSong manually from another activity
+    public static int getIntSong() {
+        return intSong;
+    }
+
+    public static void setIntSong(int intSong) {
+        MainActivity.intSong = intSong;
+    }
 
     //Declare a List, SongAdapter and RecyclerView
     //These 3 components are used to pass a list of data objects to our SongAdapter class

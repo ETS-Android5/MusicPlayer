@@ -39,6 +39,15 @@ public class DetailActivity extends AppCompatActivity {
 
     //ArrayList of Songs in same Genre
     public static ArrayList<Song> recommendedSongs = new ArrayList<>();
+    //Other variables to recommend a similar song to user
+    public static String recommendedSongName;
+    public static String recommendedSongSinger;
+    public static String recommendedSongDescription;
+    public static String recommendedSongGenre;
+    public static Float recommendedSongRating;
+    public static int recommendSongImage;
+    public static int recommendedSongMusic;
+    public static int recommendedSongPlays;
 
     //For adjusting rating of Song
     EditText txtRating;
@@ -361,7 +370,7 @@ public class DetailActivity extends AppCompatActivity {
         btnRecommends = findViewById(R.id.btnRecommends);
 
         //Initialize image
-        ImageView imageView = findViewById(R.id.imgAlbum);
+        ImageView imgAlbum = findViewById(R.id.imgAlbum);
 
         //Initialize string values
         String song = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
@@ -381,7 +390,7 @@ public class DetailActivity extends AppCompatActivity {
         ratingBar.setRating(Float.parseFloat(rating));
         mPlays.setText(plays + " Plays");
         mDescription.setText(description);
-        imageView.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
+        imgAlbum.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
 
         //Set an OnClickListener to take user to Google search for Artist and Song when user clicks on Button Search
         mSearch.setOnClickListener(new View.OnClickListener() {
@@ -423,30 +432,55 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Do a loop through all songs in songsTemp to find songs that have the same Genre as the current song
+                int compareWithId = MainActivity.intSong;
                 for (Song song : MainActivity.songsTemp) {
-                    if (song.getGenre() == MainActivity.songsTemp.get(Song.getCurrentSongId()).getGenre()) {
+                    //If genre is the same
+                    if (song.getGenre() == MainActivity.songsTemp.get(compareWithId).getGenre()) {
                         recommendedSongs.add(song);
                     }
                 }
 
                 //Import java Random library to generate a random integer between the
                 Random rand = new Random();
-                int i = rand.nextInt(recommendedSongs.size() - 0) + 0;
-                recommendedId = recommendedSongs.get(i).getId();
-                String recommendedSong = recommendedSongs.get(recommendedId).getSong();
-                String recommendedSinger = recommendedSongs.get(recommendedId).getSinger();
-
-                btnRecommends.setText(recommendedSong + " - " + recommendedSinger);
+                //In our recommendedSongs arrayList, choose a random item
+                int selection = rand.nextInt(recommendedSongs.size() - 0) + 0;
+                recommendedId = recommendedSongs.get(selection).getId();
+                recommendedSongName = recommendedSongs.get(selection).getSong();
+                recommendedSongSinger = recommendedSongs.get(selection).getSinger();
+                recommendedSongDescription = recommendedSongs.get(selection).getDescription();
+                recommendedSongGenre = recommendedSongs.get(selection).getGenre();
+                recommendedSongMusic = recommendedSongs.get(selection).getMusicFile();
+                recommendSongImage = recommendedSongs.get(selection).getImage();
+                recommendedSongRating = recommendedSongs.get(selection).getRating();
+                btnRecommends.setText(recommendedSongName + " - " + recommendedSongSinger);
                 btnRecommends.setVisibility(View.VISIBLE);
+
 
             }
         });
 
         //When user clicks on btnRecommends, they are taken to the DetailActivity of that Song
+        //All we do is adjust the fxml elements and current Song Id
         btnRecommends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Song.setCurrentSongId(recommendedId);
+                MainActivity.setIntSong(recommendedId-1);
+                recreate();
+//                Song.setCurrentSongId(recommendedId);
+//                imgAlbum.setImageResource(recommendSongImage);
+//                mSong.setText(recommendedSongName);
+//                mSinger.setText(recommendedSongSinger);
+//                mGenre.setText(recommendedSongGenre);
+//                mDescription.setText(recommendedSongDescription);
+//                mRating.setText(String.valueOf(recommendedSongRating));
+//                mPlays.setText(String.valueOf(recommendedSongPlays));
+//                Song.setIsPlaying(false);
+//                mediaPlayerCurrent.stop();
+//                mediaPlayerCurrent.release();
+
+
+
+
 
             }
         });
