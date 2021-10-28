@@ -503,21 +503,6 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 MainActivity.setIntSong(recommendedId-1);
                 recreate();
-//                Song.setCurrentSongId(recommendedId);
-//                imgAlbum.setImageResource(recommendSongImage);
-//                mSong.setText(recommendedSongName);
-//                mSinger.setText(recommendedSongSinger);
-//                mGenre.setText(recommendedSongGenre);
-//                mDescription.setText(recommendedSongDescription);
-//                mRating.setText(String.valueOf(recommendedSongRating));
-//                mPlays.setText(String.valueOf(recommendedSongPlays));
-//                Song.setIsPlaying(false);
-//                mediaPlayerCurrent.stop();
-//                mediaPlayerCurrent.release();
-
-
-
-
             }
         });
     }

@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         //Upon creation of this Activity, we want to set the contentView to activity_main
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
