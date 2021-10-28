@@ -1,5 +1,6 @@
 package au.edu.unsw.infs3634.musicrecommender;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
     private ClickListener mListener;
     //Second list is a filtered list of Songs that gets populated through our getFilter() Methods
     private List<Song> mSongsFiltered;
+
+    public static View view;
 
 
     //Implement the ClickListener
@@ -94,7 +98,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
     public SongAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Upon creation of the adapter, we want to inflate the Layout item_row (which is put into our recycler view)
         //Inflating it allows the program to find the xml elements for tvSong, tvSinger etc.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
         return new MyViewHolder(view, mListener);
 
 
@@ -105,6 +109,27 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull SongAdapter.MyViewHolder holder, int position) {
         final Song song = mSongsFiltered.get(position);
         int songId = position;
+
+        if (Setting.isIsDarkMode() == true ) {
+            //Grey background, light purple white text
+            view.setBackgroundColor(Color.parseColor("#292929"));
+            holder.tvSongItemRow.setTextColor(Color.parseColor("#F4E3FF"));
+            holder.tvSingerItemRow.setTextColor(Color.parseColor("#F4E3FF"));
+            holder.tvGenreItemRow.setTextColor(Color.parseColor("#F4E3FF"));
+            holder.tvRatingItemRow.setTextColor(Color.parseColor("#F4E3FF"));
+            holder.imgViewPlaying.setColorFilter(Color.parseColor("#9585A1"));
+            holder.tvPlaying.setTextColor(Color.parseColor("#9585A1"));
+
+        } else {
+            ;
+//            //White background, purple text
+//            view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//            holder.tvSongItemRow.setTextColor(Color.parseColor("#673AB7"));
+//            holder.tvSingerItemRow.setTextColor(Color.parseColor("#673AB7"));
+//            holder.tvGenreItemRow.setTextColor(Color.parseColor("#673AB7"));
+//            holder.tvRatingItemRow.setTextColor(Color.parseColor("#673AB7"));
+
+        }
         //Prevent recyling, as we need to identify which song is playing, and recycle causes it to display duplicates when song is recycled
         holder.setIsRecyclable(false);
         holder.tvSongItemRow.setText(song.getSong());
@@ -196,5 +221,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
         }
         //Once the sort has finished, notify app that the dataset has been changed so it refreshes
         notifyDataSetChanged();
+    }
+
+    public void toDarkMode() {
+        view.setBackgroundColor(Color.parseColor("#292929"));
     }
 }

@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private SongAdapter myAdapter;
     private RecyclerView myRecyclerView;
 
+    //Setting constructor to access methods
+    public static Setting setting = new Setting();
+
 
 
     //Method to convert bitmaps into byteArrays for BLOB storage
@@ -194,11 +197,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.themeDark:
-                myRecyclerView.setBackgroundColor(Color.parseColor("#000000"));
+                //Adjust isDarkMode to true
+                //In doing so, call a method to change item_row.xml's background colour during OnBindViewHolder in SongAdapter
+                //To refresh changes, notify the adapter
+                Setting.setIsDarkMode(true);
+                //Dark purple lines
+                myRecyclerView.setBackgroundColor(Color.parseColor("#5d5166"));
+                myAdapter.notifyDataSetChanged();
                 return true;
 
             case R.id.themeLight:
-                myRecyclerView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                //Same as above, but darkmode is off, so adapter changes background to white instead
+                Setting.setIsDarkMode(false);
+                //Light purple lines
+                myRecyclerView.setBackgroundColor(Color.parseColor("#70613F9E"));
+                myAdapter.notifyDataSetChanged();
                 return true;
 
 
@@ -208,37 +221,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-//    //Implement onOptionItemSelected behaviour to define the behaviour when user clicks on Sort by Artist, or Song Name
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.sortSong:
-//                //If the id of the item was sortSong, we sort by Song
-//                myAdapter.sort(1);
-//                return true;
-//            case R.id.sortSinger:
-//                //If the id of the item was sortArtist, we sort by Artist
-//                myAdapter.sort(2);
-//                return true;
-//            case R.id.sortGenre:
-//                //If the id of the item was sortGenre, sort by Genre
-//                myAdapter.sort(3);
-//                return true;
-//            case R.id.sortRating:
-//                //If the id of the item was sortRating, we sort by Rating
-//                myAdapter.sort(4);
-//                return true;
-//            case R.id.sortPlays:
-//                //If the id of the item was sortPlays, sort by play count
-//                myAdapter.sort(5);
-//                return true;
-//            default:
-//                //By default, if nothing is selected by user
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     //Method to check if the database exists
     //If it doesn't exist, we use the addSong method upon Activity Creation
     private static boolean databaseExists(Context context, String db) {
