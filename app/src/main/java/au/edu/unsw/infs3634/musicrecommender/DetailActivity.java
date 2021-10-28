@@ -2,7 +2,6 @@ package au.edu.unsw.infs3634.musicrecommender;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class DetailActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView playerPosition, playerDuration, mRating, mPlays;
     SeekBar seeker;
     RatingBar ratingBar;
+    Button btnRecommends;
 
     //Need instance of MediaPlayer and Handlers and Runnables to stop and start songs
     Runnable runnable;
@@ -35,12 +37,20 @@ public class DetailActivity extends AppCompatActivity {
     //Static means there can be only one instance of each variable
     public static MediaPlayer mediaPlayer, mediaPlayerCurrent;
 
+    //ArrayList of Songs in same Genre
+    public static ArrayList<Song> recommendedSongs = new ArrayList<>();
+
     //For adjusting rating of Song
-    ImageButton btnBack, btnSearch;
     EditText txtRating;
+
+    //Imagebuttons of fxml
+    ImageButton btnBack, btnSearch, btnWhiz;
 
     //Need an instance of DatabaseHandler in order to update database values for each Song
     DatabaseHandler databaseHandler = new DatabaseHandler(DetailActivity.this);
+
+    //To track what song was recommended;
+    public static int recommendedId;
 
 
     @Override
@@ -50,8 +60,6 @@ public class DetailActivity extends AppCompatActivity {
         //If you do not include this, will not be able to find any R.ids (will return Null Pointer Exception)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-
 
 
         //================================================SECTION FOR MEDIA PLAYER==============================================
@@ -95,7 +103,6 @@ public class DetailActivity extends AppCompatActivity {
         //When user first clicks on on any Song, it is disabled until they click on Play, Fast Forward or Rewind
 
 
-
         //Do a check to see if user is playing music currently, and clicked on the same song twice then we need to hide the Play button
         //And also ensure our seeker is in the original spot!
         if ((Song.isPlaying() == true && Song.getPlayingSongId() == Song.getCurrentSongId())) {
@@ -122,16 +129,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
-
-
-
-
         //Pressing play will start the media player and hide the play button but shows the pause button
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +138,7 @@ public class DetailActivity extends AppCompatActivity {
                 btnRewind.setEnabled(true);
 
                 //If the user is not playing a Song (i.e. the first time they load app) we assign our mediaPlayerCurrent to the one we create always
-                if (Song.isPlaying() == false && Song.getPlayingSongId() != Song.getCurrentSongId() ) {
+                if (Song.isPlaying() == false && Song.getPlayingSongId() != Song.getCurrentSongId()) {
                     mediaPlayerCurrent = mediaPlayer;
 
                     //Otherwise, if a song is playing we need to stop the existing instance before assigning it, but only if it is a different song
@@ -152,7 +149,7 @@ public class DetailActivity extends AppCompatActivity {
 
                     //Otherwise, if the user is playing a Song, and it is the same song they clicked play on previously AND it has been paused
                     //...we just let it continue playing
-                } else if (Song.isPlaying() == false && Song.getPlayingSongId() == Song.getCurrentSongId() ) {
+                } else if (Song.isPlaying() == false && Song.getPlayingSongId() == Song.getCurrentSongId()) {
                     mediaPlayerCurrent.start();
                 } else {
                     ;
@@ -177,7 +174,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
         //Clicking on pause will pause the media player
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,7 +193,6 @@ public class DetailActivity extends AppCompatActivity {
                 mediaPlayerCurrent.pause();
             }
         });
-
 
 
         //When the user presses fast forward, the music is moved forward by 10 seconds
@@ -226,8 +221,8 @@ public class DetailActivity extends AppCompatActivity {
 
                 //Get current position and duration of the mediaPlayer
                 int position = mediaPlayerCurrent.getCurrentPosition();
-                    //Get the duration of the media playe
-                    //If the current position of the media player is not at the end, fast forward the song by 5 seconds
+                //Get the duration of the media playe
+                //If the current position of the media player is not at the end, fast forward the song by 5 seconds
                 int d = mediaPlayerCurrent.getDuration();
                 if (position != d) {
                     //Note we are using milliseconds
@@ -254,7 +249,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
         //Pressing rewind will take the user back by 5 seconds in the song
         btnRewind.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,7 +268,6 @@ public class DetailActivity extends AppCompatActivity {
                 int position = mediaPlayerCurrent.getCurrentPosition();
 
 
-
                 //If the song is at least 5 seconds in, we can rewind back by 5 seconds
                 if (position > 5000) {
                     position -= 5000;
@@ -290,7 +283,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
         //Whenever the user adjusts the seeker, adjust both the song time and the TextView to the adjusted time
@@ -317,8 +309,6 @@ public class DetailActivity extends AppCompatActivity {
                 ;
             }
         });
-
-
 
 
         //When the song finishes playing, stop playing the song, and hide the pause button
@@ -351,10 +341,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
         //=====================================================SECTION FOR OTHER XML ELEMENTS =======================================================
 
         //Create and initialize variables for each TextView that holds data on each country
@@ -368,9 +354,11 @@ public class DetailActivity extends AppCompatActivity {
         //Initialize button for integration with browser
         ImageButton mSearch = findViewById(R.id.btnSearch);
 
-        //Initialize save button to save changes to rating;
+        //Initialize save button to save changes to rating, button to generate a recommendation and button to search
         btnBack = findViewById(R.id.btnBack);
+        btnWhiz = findViewById(R.id.btnWhiz);
         btnSearch = findViewById(R.id.btnSearch);
+        btnRecommends = findViewById(R.id.btnRecommends);
 
         //Initialize image
         ImageView imageView = findViewById(R.id.imgAlbum);
@@ -408,8 +396,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
-
         //Set an OnClickListener that changes the rating of the current Song in the database
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -432,7 +418,41 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnWhiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Do a loop through all songs in songsTemp to find songs that have the same Genre as the current song
+                for (Song song : MainActivity.songsTemp) {
+                    if (song.getGenre() == MainActivity.songsTemp.get(Song.getCurrentSongId()).getGenre()) {
+                        recommendedSongs.add(song);
+                    }
+                }
+
+                //Import java Random library to generate a random integer between the
+                Random rand = new Random();
+                int i = rand.nextInt(recommendedSongs.size() - 0) + 0;
+                recommendedId = recommendedSongs.get(i).getId();
+                String recommendedSong = recommendedSongs.get(recommendedId).getSong();
+                String recommendedSinger = recommendedSongs.get(recommendedId).getSinger();
+
+                btnRecommends.setText(recommendedSong + " - " + recommendedSinger);
+                btnRecommends.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        //When user clicks on btnRecommends, they are taken to the DetailActivity of that Song
+        btnRecommends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Song.setCurrentSongId(recommendedId);
+
+            }
+        });
     }
+
+
 
     //For Media Player
     //Converts the duration of the song into a 00:00 format, using MILLISECONDS as a time unit

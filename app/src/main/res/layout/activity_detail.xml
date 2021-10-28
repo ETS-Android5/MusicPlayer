@@ -78,7 +78,7 @@
         android:id="@+id/imgAlbum"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
@@ -209,10 +209,10 @@
 
     <ImageButton
         android:id="@+id/btnSearch"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="#673AB7"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="#A07CE1"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintEnd_toEndOf="@+id/tvDescription"
@@ -221,10 +221,10 @@
 
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="#673AB7"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="#A07CE1"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintStart_toStartOf="@+id/tvDescription"
@@ -232,11 +232,11 @@
         app:srcCompat="@drawable/icon_song" />
 
     <ImageButton
-        android:id="@+id/btnWizard"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="#673AB7"
+        android:id="@+id/btnWhiz"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="#A07CE1"
         app:layout_constraintEnd_toStartOf="@+id/btnSearch"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription"
@@ -260,9 +260,9 @@
         android:text="SongWiz"
         android:textColor="#673AB7"
         android:textColorLink="#673AB7"
-        app:layout_constraintEnd_toEndOf="@+id/btnWizard"
-        app:layout_constraintStart_toStartOf="@+id/btnWizard"
-        app:layout_constraintTop_toBottomOf="@+id/btnWizard" />
+        app:layout_constraintEnd_toEndOf="@+id/btnWhiz"
+        app:layout_constraintStart_toStartOf="@+id/btnWhiz"
+        app:layout_constraintTop_toBottomOf="@+id/btnWhiz" />
 
     <TextView
         android:id="@+id/textView3"
@@ -274,5 +274,28 @@
         app:layout_constraintEnd_toEndOf="@+id/btnSearch"
         app:layout_constraintStart_toStartOf="@+id/btnSearch"
         app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
+
+    <Button
+        android:id="@+id/btnRecommends"
+        android:layout_width="239dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="35dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/tvSinger"
+        app:layout_constraintStart_toStartOf="@+id/tvSinger"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
+
+    <TextView
+        android:id="@+id/tvRecommends"
+        android:layout_width="239dp"
+        android:layout_height="20dp"
+        android:gravity="center|left"
+        android:text="If you like this, Whiz recommends..."
+        android:textColor="#673AB7"
+        android:textSize="12dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+        app:layout_constraintStart_toStartOf="@+id/tvDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
