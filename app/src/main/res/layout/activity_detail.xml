@@ -13,7 +13,7 @@
         android:id="@+id/tvSong"
         android:layout_width="235dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center|center_vertical"
         android:text="Song"
         android:textAlignment="gravity"
@@ -26,11 +26,11 @@
 
     <TextView
         android:id="@+id/tvRating"
-        android:layout_width="45dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="20dp"
         android:gravity="left|center_vertical"
-        android:text="Rating"
+        android:text="0.0"
         android:textAlignment="gravity"
         android:textColor="#673AB7"
         app:layout_constraintStart_toStartOf="@+id/btnRewind"
@@ -53,7 +53,7 @@
         android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:gravity="left|center_vertical"
         android:text="Genre"
         android:textAlignment="gravity"
@@ -65,7 +65,6 @@
         android:id="@+id/tvSinger"
         android:layout_width="235dp"
         android:layout_height="25dp"
-        android:layout_marginTop="5dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Artist"
         android:textAlignment="gravity"
@@ -79,7 +78,7 @@
         android:id="@+id/imgAlbum"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +115,7 @@
         android:id="@+id/tvPlayerPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="2dp"
         android:text="00:00"
         android:textColor="#673AB7"
         app:layout_constraintEnd_toStartOf="@+id/seeker"
@@ -126,7 +125,7 @@
         android:id="@+id/tvPlayerDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="2dp"
         android:text="00:00"
         android:textColor="#673AB7"
         app:layout_constraintStart_toEndOf="@+id/seeker"
@@ -242,5 +241,38 @@
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription"
         app:srcCompat="@drawable/icon_wizard" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Song List"
+        android:textColor="#673AB7"
+        android:textColorLink="#673AB7"
+        app:layout_constraintEnd_toEndOf="@+id/btnBack"
+        app:layout_constraintStart_toStartOf="@+id/btnBack"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SongWiz"
+        android:textColor="#673AB7"
+        android:textColorLink="#673AB7"
+        app:layout_constraintEnd_toEndOf="@+id/btnWizard"
+        app:layout_constraintStart_toStartOf="@+id/btnWizard"
+        app:layout_constraintTop_toBottomOf="@+id/btnWizard" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Google"
+        android:textColor="#673AB7"
+        android:textColorLink="#673AB7"
+        app:layout_constraintEnd_toEndOf="@+id/btnSearch"
+        app:layout_constraintStart_toStartOf="@+id/btnSearch"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

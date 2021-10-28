@@ -105,6 +105,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull SongAdapter.MyViewHolder holder, int position) {
         final Song song = mSongsFiltered.get(position);
         int songId = position;
+        //Prevent recyling, as we need to identify which song is playing, and recycle causes it to display duplicates when song is recycled
+        holder.setIsRecyclable(false);
         holder.tvSongItemRow.setText(song.getSong());
         holder.tvSingerItemRow.setText(song.getSinger());
         holder.tvGenreItemRow.setText(song.getGenre());

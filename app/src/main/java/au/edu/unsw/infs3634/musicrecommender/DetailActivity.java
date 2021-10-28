@@ -424,6 +424,14 @@ public class DetailActivity extends AppCompatActivity {
                 mRating.setText(String.valueOf(newRating));
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //For Media Player
@@ -435,13 +443,4 @@ public class DetailActivity extends AppCompatActivity {
                 TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
         );
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        ///COPY THIS METHOD ONTO THE BACK BUTTON WHEN WE IMPLEMENT IT!
-//        //If the user is currently playing a song, then when user presses back, the previous songId will be set to what we just clicked on before
-//
-//        }
-//    }
 }
