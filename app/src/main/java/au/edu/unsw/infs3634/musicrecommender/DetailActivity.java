@@ -2,6 +2,8 @@ package au.edu.unsw.infs3634.musicrecommender;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorMatrixColorFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
 
     //Initialize components needed to play Songs
     ImageView btnRewind, btnPlay, btnFastForward, btnPause;
-    TextView playerPosition, playerDuration, mRating, mPlays;
+    TextView playerPosition, playerDuration, mRating, mPlays, mSong, mSinger, mGenre, mDescription, mSongList, mWiz, mGoogle;
     SeekBar seeker;
     RatingBar ratingBar;
     Button btnRecommends;
@@ -61,6 +63,8 @@ public class DetailActivity extends AppCompatActivity {
     //To track what song was recommended;
     public static int recommendedId;
 
+    View detailView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +74,32 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        detailView = findViewById(R.id.viewDetail);
 
-        //================================================SECTION FOR MEDIA PLAYER==============================================
+        //Create and initialize variables for each TextView that holds data
+        mSong = findViewById(R.id.tvSong);
+        mSinger = findViewById(R.id.tvSinger);
+        mGenre = findViewById(R.id.tvGenre);
+        mRating = findViewById(R.id.tvRating);
+        mPlays = findViewById(R.id.tvPlays);
+        mDescription = findViewById(R.id.tvDescription);
+        mWiz = findViewById(R.id.tvSongWiz);
+        mGoogle = findViewById(R.id.tvGoogle);
+        mSongList = findViewById(R.id.tvSongList);
+
+        //Initialize button for integration with browser
+        ImageButton mSearch = findViewById(R.id.btnSearch);
+
+        //Initialize save button to save changes to rating, button to generate a recommendation and button to search
+        btnBack = findViewById(R.id.btnBack);
+        btnWhiz = findViewById(R.id.btnWhiz);
+        btnSearch = findViewById(R.id.btnSearch);
+        btnRecommends = findViewById(R.id.btnRecommends);
+
+        //Initialize image
+        ImageView imgAlbum = findViewById(R.id.imgAlbum);
+
+
         //Initialize the player variables as required
         playerPosition = findViewById(R.id.tvPlayerPosition);
         playerDuration = findViewById(R.id.tvPlayerDuration);
@@ -84,6 +112,35 @@ public class DetailActivity extends AppCompatActivity {
 
         //Need to create a new mediaPlayer always whenever we view Detail Activity
         mediaPlayer = MediaPlayer.create(this, MainActivity.songsTemp.get(MainActivity.intSong).getMusicFile());
+
+        //UI Dark Mode Check==============
+        //This section is just to check if the user has enabled Dark Mode
+        //Check if user toggled dark mode. If so, change UI components
+        if (Setting.isIsDarkMode() == true) {
+            //Grey background, light grey purple text
+            detailView.setBackgroundColor(Color.parseColor("#292929"));
+            mSong.setTextColor(Color.parseColor("#F4E3FF"));
+            mSinger.setTextColor(Color.parseColor("#F4E3FF"));
+            mGenre.setTextColor(Color.parseColor("#F4E3FF"));
+            mRating.setTextColor(Color.parseColor("#F4E3FF"));
+            playerDuration.setTextColor(Color.parseColor("#F4E3FF"));
+            playerPosition.setTextColor(Color.parseColor("#F4E3FF"));
+            mSongList.setTextColor(Color.parseColor("#F4E3FF"));
+            mGoogle.setTextColor(Color.parseColor("#F4E3FF"));
+            mWiz.setTextColor(Color.parseColor("#F4E3FF"));
+            mPlays.setTextColor(Color.parseColor("#F4E3FF"));
+            btnPlay.setBackgroundTintList(getColorStateList(R.color.darkmode_tint));
+            btnPause.setBackgroundTintList(getColorStateList(R.color.darkmode_tint));
+            btnFastForward.setBackgroundTintList(getColorStateList(R.color.darkmode_tint));
+            btnRewind.setBackgroundTintList(getColorStateList(R.color.darkmode_tint));
+            mDescription.setBackgroundColor(Color.parseColor("#383838"));
+            mDescription.setTextColor(Color.parseColor("#F4E3FF"));
+        } else {
+            ;
+        }
+
+
+        //================================================SECTION FOR MEDIA PLAYER==============================================
 
         //Convert the duration of the mediaPlayer into a String format so it can be displayed in TextViews
         //Then set the duration TextView as the time remaining
@@ -352,26 +409,6 @@ public class DetailActivity extends AppCompatActivity {
 
         //=====================================================SECTION FOR OTHER XML ELEMENTS =======================================================
 
-        //Create and initialize variables for each TextView that holds data on each country
-        TextView mSong = findViewById(R.id.tvSong);
-        TextView mSinger = findViewById(R.id.tvSinger);
-        TextView mGenre = findViewById(R.id.tvGenre);
-        mRating = findViewById(R.id.tvRating);
-        mPlays = findViewById(R.id.tvPlays);
-        TextView mDescription = findViewById(R.id.tvDescription);
-
-        //Initialize button for integration with browser
-        ImageButton mSearch = findViewById(R.id.btnSearch);
-
-        //Initialize save button to save changes to rating, button to generate a recommendation and button to search
-        btnBack = findViewById(R.id.btnBack);
-        btnWhiz = findViewById(R.id.btnWhiz);
-        btnSearch = findViewById(R.id.btnSearch);
-        btnRecommends = findViewById(R.id.btnRecommends);
-
-        //Initialize image
-        ImageView imgAlbum = findViewById(R.id.imgAlbum);
-
         //Initialize string values
         String song = MainActivity.songsTemp.get(MainActivity.intSong).getSong();
         String singer = MainActivity.songsTemp.get(MainActivity.intSong).getSinger();
@@ -477,7 +514,6 @@ public class DetailActivity extends AppCompatActivity {
 //                Song.setIsPlaying(false);
 //                mediaPlayerCurrent.stop();
 //                mediaPlayerCurrent.release();
-
 
 
 

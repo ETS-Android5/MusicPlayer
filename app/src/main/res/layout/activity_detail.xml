@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleX="1"
@@ -243,7 +244,7 @@
         app:srcCompat="@drawable/icon_wizard" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvSongList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Song List"
@@ -254,7 +255,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvSongWiz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SongWiz"
@@ -265,7 +266,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnWhiz" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvGoogle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Google"
