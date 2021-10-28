@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         //Load the list of Songs into songsTemp
         songsTemp = Song.getSongs();
 
-        //Initializer  our RecyclerView
+        //Initializer  our RecyclerView (this is our view)
         myRecyclerView = findViewById(R.id.recyclerView);
         myRecyclerView.setHasFixedSize(true);
 
@@ -191,11 +192,52 @@ public class MainActivity extends AppCompatActivity {
                 //If the id of the item was sortPlays, sort by play count
                 myAdapter.sort(5);
                 return true;
+
+            case R.id.themeDark:
+                myRecyclerView.setBackgroundColor(Color.parseColor("#000000"));
+                return true;
+
+            case R.id.themeLight:
+                myRecyclerView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                return true;
+
+
+
             default:
                 //By default, if nothing is selected by user
                 return super.onOptionsItemSelected(item);
         }
     }
+
+//    //Implement onOptionItemSelected behaviour to define the behaviour when user clicks on Sort by Artist, or Song Name
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.sortSong:
+//                //If the id of the item was sortSong, we sort by Song
+//                myAdapter.sort(1);
+//                return true;
+//            case R.id.sortSinger:
+//                //If the id of the item was sortArtist, we sort by Artist
+//                myAdapter.sort(2);
+//                return true;
+//            case R.id.sortGenre:
+//                //If the id of the item was sortGenre, sort by Genre
+//                myAdapter.sort(3);
+//                return true;
+//            case R.id.sortRating:
+//                //If the id of the item was sortRating, we sort by Rating
+//                myAdapter.sort(4);
+//                return true;
+//            case R.id.sortPlays:
+//                //If the id of the item was sortPlays, sort by play count
+//                myAdapter.sort(5);
+//                return true;
+//            default:
+//                //By default, if nothing is selected by user
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     //Method to check if the database exists
     //If it doesn't exist, we use the addSong method upon Activity Creation

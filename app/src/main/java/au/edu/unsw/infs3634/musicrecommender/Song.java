@@ -149,21 +149,21 @@ public class Song {
 
     public static ArrayList<Song> getSongs() {
         ArrayList<Song> songs = new ArrayList<>();
-        songs.add(new Song(1, "Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", R.drawable.image_1, R.raw.song01, 0));
-        songs.add(new Song(2, "Sunny", "Benjamin Tissot", "Acoustic",3.2f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", R.drawable.image_1, R.raw.song02, 0));
-        songs.add(new Song(3, "Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", R.drawable.image_2, R.raw.song03, 0));
-        songs.add(new Song(4, "C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", R.drawable.image_1, R.raw.song04, 0));
-        songs.add(new Song(5, "Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song05,0));
-        songs.add(new Song(6, "Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", R.drawable.image_1, R.raw.song06, 0));
-        songs.add(new Song(7, "Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song07, 0));
-        songs.add(new Song(8, "Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", R.drawable.image_1, R.raw.song08, 0));
-        songs.add(new Song(9, "Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song09, 0));
-        songs.add(new Song(10, "The Jazz Piano", "Benjamin Tissot","Jazz", 4.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song10, 0));
-        songs.add(new Song(11, "Rumble", "Benjamin Tissot","Rock", 3.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song11, 0));
-        songs.add(new Song(12, "A New Beginning", "Benjamin Tissot","Pop Rock", 3.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song12, 0));
-        songs.add(new Song(13, "High Octane", "Benjamin Tissot","Rock", 3.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song13, 0));
-        songs.add(new Song(14, "About You", "de Pablos","Electronic", 4.2f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song14, 0));
-        songs.add(new Song(15, "JIGLR", "Gang","Electronic", 4.9f,  "Sample Description - this will be changed later.", R.drawable.image_2, R.raw.song15, 0));
+        songs.add(new Song(1, "Endless Motion", "Benjamin Tissot", "Electro",3.4f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", R.drawable.img1, R.raw.song01, 0));
+        songs.add(new Song(2, "Sunny", "Benjamin Tissot", "Acoustic",3.2f,  "Benjamin produced this hypnotic, but otherwise awesome electronic dance track.", R.drawable.img2, R.raw.song02, 0));
+        songs.add(new Song(3, "Tech House vibes", "Alejandro Magaña", "Electronic",3.8f,  "Alejandro's 'Tech House vibes' is  relaxing, mellow and smooth electronic and house mashup.", R.drawable.img3, R.raw.song03, 0));
+        songs.add(new Song(4, "C.B.P.D", "Arulo", "Hip Hop",4.2f,  "Produced in 2016, Arulo's 'C.B.P.D' is sad, dramatic alternative style hip-hop beat.", R.drawable.img4, R.raw.song04, 0));
+        songs.add(new Song(5, "Dreams", "Benjamin Tissot", "Electro",3.9f,  "Sample Description - this will be changed later.", R.drawable.img5, R.raw.song05,0));
+        songs.add(new Song(6, "Happiness", "Benjamin Tissot", "Folk",4.1f,  "Sample Description - this will be changed later.", R.drawable.img6, R.raw.song06, 0));
+        songs.add(new Song(7, "Complicated", "Arulo", "Hip Hop",4.2f,  "Sample Description - this will be changed later.", R.drawable.img7, R.raw.song07, 0));
+        songs.add(new Song(8, "Sports Highlights", "Ahjay Stelino","Rock", 3.1f,  "Sample Description - this will be changed later.", R.drawable.img8, R.raw.song08, 0));
+        songs.add(new Song(9, "Sneaky Snitch", "Kevin Macleod","Classical", 4.9f,  "Sample Description - this will be changed later.", R.drawable.img9, R.raw.song09, 0));
+        songs.add(new Song(10, "The Jazz Piano", "Benjamin Tissot","Jazz", 4.9f,  "Sample Description - this will be changed later.", R.drawable.img1013, R.raw.song10, 0));
+        songs.add(new Song(11, "Rumble", "Benjamin Tissot","Rock", 3.9f,  "Sample Description - this will be changed later.", R.drawable.img1013, R.raw.song11, 0));
+        songs.add(new Song(12, "A New Beginning", "Benjamin Tissot","Pop Rock", 3.9f,  "Sample Description - this will be changed later.", R.drawable.img1013, R.raw.song12, 0));
+        songs.add(new Song(13, "High Octane", "Benjamin Tissot","Rock", 3.9f,  "Sample Description - this will be changed later.", R.drawable.img1013, R.raw.song13, 0));
+        songs.add(new Song(14, "About You", "de Pablos","Electronic", 4.2f,  "Sample Description - this will be changed later.", R.drawable.img14, R.raw.song14, 0));
+        songs.add(new Song(15, "JIGLR", "Gang","Electronic", 4.9f,  "Sample Description - this will be changed later.", R.drawable.img15, R.raw.song15, 0));
         return songs;
     }
 }

@@ -3,6 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:icon="@drawable/icon_theme"
+        android:title="Theme"
+        android:visible="true"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/themeDark"
+                android:title="Dark"
+                app:tint="#673AB7" />
+            <item
+                android:id="@+id/themeLight"
+                android:title="Light"
+                app:tint="#673AB7" />
+        </menu>
+    </item>
+    <item
         android:icon="@android:drawable/arrow_down_float"
         android:title="Sort By"
         app:showAsAction="always">
@@ -26,7 +42,7 @@
     </item>
     <item
         android:id="@+id/searchItem"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/icon_search_white"
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
