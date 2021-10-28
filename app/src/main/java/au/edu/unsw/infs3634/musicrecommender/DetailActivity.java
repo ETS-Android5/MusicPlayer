@@ -2,8 +2,8 @@ package au.edu.unsw.infs3634.musicrecommender;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.media.MediaPlayer;
-import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     public static MediaPlayer mediaPlayer, mediaPlayerCurrent;
 
     //For adjusting rating of Song
-    Button btnSave;
+    ImageButton btnBack, btnSearch;
     EditText txtRating;
 
     //Need an instance of DatabaseHandler in order to update database values for each Song
@@ -369,7 +369,8 @@ public class DetailActivity extends AppCompatActivity {
         ImageButton mSearch = findViewById(R.id.btnSearch);
 
         //Initialize save button to save changes to rating;
-        btnSave = findViewById(R.id.btnSave);
+        btnBack = findViewById(R.id.btnBack);
+        btnSearch = findViewById(R.id.btnSearch);
 
         //Initialize image
         ImageView imageView = findViewById(R.id.imgAlbum);
