@@ -469,6 +469,11 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if ((Song.isPlaying() == true && Song.getPlayingSongId() == Song.getCurrentSongId())) {
+            mediaPlayer = mediaPlayerCurrent;
+        } else {
+            ;
+        }
         mPlays.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays()) + " Plays");
     }
 
