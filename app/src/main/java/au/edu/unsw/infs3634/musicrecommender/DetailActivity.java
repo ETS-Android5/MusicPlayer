@@ -69,6 +69,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         //NOTE: This section must always go first. This links your Java class to the XML you describe
         //If you do not include this, will not be able to find any R.ids (will return Null Pointer Exception)
         super.onCreate(savedInstanceState);
@@ -174,6 +175,7 @@ public class DetailActivity extends AppCompatActivity {
             //Enable our seeker and rewind button, if user is going back to same song they are already playing.
             seeker.setEnabled(true);
             btnRewind.setEnabled(true);
+            mediaPlayer = mediaPlayerCurrent;
 
             seeker.setMax(mediaPlayerCurrent.getDuration());
             handler.postDelayed(runnable, 0);
@@ -205,7 +207,7 @@ public class DetailActivity extends AppCompatActivity {
                     mediaPlayerCurrent = mediaPlayer;
 
                     //Otherwise, if a song is playing we need to stop the existing instance before assigning it, but only if it is a different song
-                } else if (Song.isPlaying() && Song.getPlayingSongId() != Song.getCurrentSongId()) {
+                } else if (Song.isPlaying() == true && Song.getPlayingSongId() != Song.getCurrentSongId()) {
                     mediaPlayerCurrent.stop();
                     mediaPlayerCurrent.release();
                     mediaPlayerCurrent = mediaPlayer;
@@ -402,6 +404,7 @@ public class DetailActivity extends AppCompatActivity {
                 mPlays.setText(String.valueOf(playCount) + " Plays");
             }
         });
+
 
 
         //=====================================================SECTION FOR OTHER XML ELEMENTS =======================================================
