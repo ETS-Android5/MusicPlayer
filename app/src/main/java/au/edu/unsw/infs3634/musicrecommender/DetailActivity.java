@@ -183,6 +183,7 @@ public class DetailActivity extends AppCompatActivity {
             //If the song was paused, but user clicked on the same song, then hide the pause button, and show the play button
             btnPlay.setVisibility(View.VISIBLE);
             btnPause.setVisibility(View.GONE);
+            mediaPlayer = mediaPlayerCurrent;
 
             seeker.setEnabled(true);
             btnRewind.setEnabled(true);
@@ -320,18 +321,16 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //If the song is a different song, it will be at 0, so disable the btnRewind Button
                 if (Song.getPlayingSongId() != Song.getCurrentSongId()) {
-                    btnRewind.setEnabled(false);
-                } else if (Song.getCurrentSongId() == Song.getCurrentSongId()) {
+
+                } else if (Song.getPlayingSongId() == Song.getCurrentSongId()) {
                     //Otherwise if it is the same song
                     btnRewind.setEnabled(true);
                 } else {
                     //Otherwise user has not clicked Play on any song yet
                     btnRewind.setEnabled(false);
                 }
-
                 //Get current position
                 int position = mediaPlayerCurrent.getCurrentPosition();
-
 
                 //If the song is at least 5 seconds in, we can rewind back by 5 seconds
                 if (position > 5000) {
@@ -339,11 +338,11 @@ public class DetailActivity extends AppCompatActivity {
 
                     //Set the current progress on seekBar and change the TextView to the position of the player
                     //Show the pause button but hide the play button
+                    mediaPlayerCurrent.seekTo(position);
+                    mediaPlayerCurrent.start();
+                    playerPosition.setText(convertFormat(position));
                     btnPause.setVisibility(View.VISIBLE);
                     btnPlay.setVisibility(View.GONE);
-                    mediaPlayerCurrent.start();
-                    mediaPlayerCurrent.seekTo(position);
-                    playerPosition.setText(convertFormat(position));
 
                 }
             }
@@ -393,7 +392,7 @@ public class DetailActivity extends AppCompatActivity {
                 int newPlays = MainActivity.songsTemp.get(MainActivity.intSong).getPlays() + 1;
 
                 //The id of our database starts from 1, so we add 1
-                int id = MainActivity.intSong + 1;
+                int id = MainActivity.songsTemp.get(MainActivity.intSong).getId();
 
                 //Update play count in database by 1
                 databaseHandler.updatePlays(id, newPlays);
