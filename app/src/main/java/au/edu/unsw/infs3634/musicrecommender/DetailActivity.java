@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
 
     //Initialize components needed to play Songs
     ImageView btnRewind, btnPlay, btnFastForward, btnPause;
-    TextView playerPosition, playerDuration, mRating, mPlays, mSong, mSinger, mGenre, mDescription, mSongList, mWiz, mGoogle;
+    TextView playerPosition, playerDuration, mRating, mPlays, mSong, mSinger, mGenre, mDescription, mSongList, mGoogle;
     SeekBar seeker;
     RatingBar ratingBar;
     Button btnRecommends;
@@ -125,7 +125,6 @@ public class DetailActivity extends AppCompatActivity {
             playerPosition.setTextColor(Color.parseColor("#F4E3FF"));
             mSongList.setTextColor(Color.parseColor("#F4E3FF"));
             mGoogle.setTextColor(Color.parseColor("#F4E3FF"));
-            mWiz.setTextColor(Color.parseColor("#F4E3FF"));
             mPlays.setTextColor(Color.parseColor("#F4E3FF"));
             btnPlay.setBackgroundTintList(getColorStateList(R.color.darkmode_tint));
             btnPause.setBackgroundTintList(getColorStateList(R.color.darkmode_tint));
