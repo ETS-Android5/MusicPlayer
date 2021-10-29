@@ -83,7 +83,6 @@ public class DetailActivity extends AppCompatActivity {
         mRating = findViewById(R.id.tvRating);
         mPlays = findViewById(R.id.tvPlays);
         mDescription = findViewById(R.id.tvDescription);
-        mWiz = findViewById(R.id.tvSongWiz);
         mGoogle = findViewById(R.id.tvGoogle);
         mSongList = findViewById(R.id.tvSongList);
 
@@ -92,7 +91,6 @@ public class DetailActivity extends AppCompatActivity {
 
         //Initialize save button to save changes to rating, button to generate a recommendation and button to search
         btnBack = findViewById(R.id.btnBack);
-        btnWhiz = findViewById(R.id.btnWhiz);
         btnSearch = findViewById(R.id.btnSearch);
         btnRecommends = findViewById(R.id.btnRecommends);
 
@@ -464,50 +462,7 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btnWhiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Do a loop through all songs in songsTemp to find songs that have the same Genre as the current song
-                int compareWithId = MainActivity.intSong;
-                for (Song song : MainActivity.songsTemp) {
-                    //If genre is the same
-                    if (song.getGenre() == MainActivity.songsTemp.get(compareWithId).getGenre()) {
-                        recommendedSongs.add(song);
-                    }
-                }
-
-                //Import java Random library to generate a random integer between the
-                Random rand = new Random();
-                //In our recommendedSongs arrayList, choose a random item
-                int selection = rand.nextInt(recommendedSongs.size() - 0) + 0;
-                recommendedId = recommendedSongs.get(selection).getId();
-                recommendedSongName = recommendedSongs.get(selection).getSong();
-                recommendedSongSinger = recommendedSongs.get(selection).getSinger();
-                recommendedSongDescription = recommendedSongs.get(selection).getDescription();
-                recommendedSongGenre = recommendedSongs.get(selection).getGenre();
-                recommendedSongMusic = recommendedSongs.get(selection).getMusicFile();
-                recommendSongImage = recommendedSongs.get(selection).getImage();
-                recommendedSongRating = recommendedSongs.get(selection).getRating();
-                btnRecommends.setText(recommendedSongName + " - " + recommendedSongSinger);
-                btnRecommends.setVisibility(View.VISIBLE);
-
-
-            }
-        });
-
-        //When user clicks on btnRecommends, they are taken to the DetailActivity of that Song
-        //All we do is adjust the fxml elements and current Song Id
-        btnRecommends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.setIntSong(recommendedId-1);
-                recreate();
-            }
-        });
     }
-
-
 
     //For Media Player
     //Converts the duration of the song into a 00:00 format, using MILLISECONDS as a time unit

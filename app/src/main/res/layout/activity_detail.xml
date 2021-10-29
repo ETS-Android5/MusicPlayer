@@ -29,7 +29,7 @@
         android:id="@+id/tvRating"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:gravity="left|center_vertical"
         android:text="0.0"
         android:textAlignment="gravity"
@@ -88,18 +88,17 @@
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="239dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="35dp"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
         android:background="#EDEDED"
         android:gravity="center"
         android:padding="10dp"
         android:text="This is a sample description"
         android:textColor="#333333"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/seeker"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="@+id/seeker"
+        app:layout_constraintEnd_toEndOf="@+id/tvPlays"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
 
     <SeekBar
@@ -167,10 +166,12 @@
 
     <ImageButton
         android:id="@+id/btnPlay"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="#FFFFFF"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
         app:layout_constraintStart_toStartOf="@+id/imgAlbum"
         app:layout_constraintTop_toBottomOf="@+id/seeker"
@@ -178,10 +179,12 @@
 
     <ImageButton
         android:id="@+id/btnPause"
-        android:layout_width="52dp"
-        android:layout_height="46dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="#FFFFFF"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/imgAlbum"
         app:layout_constraintStart_toStartOf="@+id/imgAlbum"
@@ -190,58 +193,51 @@
 
     <ImageButton
         android:id="@+id/btnRewind"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="#FFFFFF"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintStart_toStartOf="@+id/seeker"
         app:layout_constraintTop_toBottomOf="@+id/seeker"
         app:srcCompat="@drawable/icon_rewind" />
 
     <ImageButton
         android:id="@+id/btnFastForward"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="#FFFFFF"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintEnd_toEndOf="@+id/seeker"
         app:layout_constraintTop_toBottomOf="@+id/seeker"
         app:srcCompat="@drawable/icon_fast_forward" />
 
     <ImageButton
         android:id="@+id/btnSearch"
-        android:layout_width="55dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="7dp"
-        android:backgroundTint="#A07CE1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#8F53FA"
         android:scaleX="1"
         android:scaleY="1"
-        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:layout_constraintStart_toEndOf="@+id/imgAlbum"
+        app:layout_constraintTop_toTopOf="@+id/imgAlbum"
         app:srcCompat="@drawable/icon_search_white" />
 
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="55dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="7dp"
-        android:backgroundTint="#A07CE1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#8F53FA"
         android:scaleX="1"
         android:scaleY="1"
-        app:layout_constraintStart_toStartOf="@+id/tvDescription"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:layout_constraintEnd_toStartOf="@+id/imgAlbum"
+        app:layout_constraintTop_toTopOf="@+id/imgAlbum"
         app:srcCompat="@drawable/icon_song" />
-
-    <ImageButton
-        android:id="@+id/btnWhiz"
-        android:layout_width="55dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="7dp"
-        android:backgroundTint="#A07CE1"
-        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
-        app:layout_constraintStart_toEndOf="@+id/btnBack"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
-        app:srcCompat="@drawable/icon_wizard" />
 
     <TextView
         android:id="@+id/tvSongList"
@@ -253,17 +249,6 @@
         app:layout_constraintEnd_toEndOf="@+id/btnBack"
         app:layout_constraintStart_toStartOf="@+id/btnBack"
         app:layout_constraintTop_toBottomOf="@+id/btnBack" />
-
-    <TextView
-        android:id="@+id/tvSongWiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SongWiz"
-        android:textColor="#673AB7"
-        android:textColorLink="#673AB7"
-        app:layout_constraintEnd_toEndOf="@+id/btnWhiz"
-        app:layout_constraintStart_toStartOf="@+id/btnWhiz"
-        app:layout_constraintTop_toBottomOf="@+id/btnWhiz" />
 
     <TextView
         android:id="@+id/tvGoogle"
@@ -285,18 +270,5 @@
         app:layout_constraintEnd_toEndOf="@+id/tvSinger"
         app:layout_constraintStart_toStartOf="@+id/tvSinger"
         app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
-
-    <TextView
-        android:id="@+id/tvRecommends"
-        android:layout_width="239dp"
-        android:layout_height="20dp"
-        android:gravity="center|left"
-        android:text="If you like this, Whiz recommends..."
-        android:textColor="#673AB7"
-        android:textSize="12dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescription"
-        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
-        app:layout_constraintStart_toStartOf="@+id/tvDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
