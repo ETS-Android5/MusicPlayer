@@ -466,6 +466,12 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPlays.setText(String.valueOf(MainActivity.songsTemp.get(MainActivity.intSong).getPlays()) + " Plays");
+    }
+
     //For Media Player
     //Converts the duration of the song into a 00:00 format, using MILLISECONDS as a time unit
     @SuppressLint("DefaultLocale")
