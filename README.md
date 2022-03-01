@@ -1,5 +1,6 @@
 This is a Music Player application, mainly building it for learing purposes in Android Studios.
-Language: Java
+- Language: Java
+
 Features:
 - Play Songs
 - Browse Songs
