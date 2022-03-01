@@ -2,13 +2,16 @@ package au.edu.unsw.infs3634.musicrecommender;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +22,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.picasso.Picasso;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -72,6 +80,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //NOTE: This section must always go first. This links your Java class to the XML you describe
         //If you do not include this, will not be able to find any R.ids (will return Null Pointer Exception)
+        //Remove the title bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
@@ -84,8 +93,8 @@ public class DetailActivity extends AppCompatActivity {
         mRating = findViewById(R.id.tvRating);
         mPlays = findViewById(R.id.tvPlays);
         mDescription = findViewById(R.id.tvDescription);
-        mGoogle = findViewById(R.id.tvGoogle);
         mSongList = findViewById(R.id.tvSongList);
+
 
         //Initialize button for integration with browser
         ImageButton mSearch = findViewById(R.id.btnSearch);
@@ -95,8 +104,9 @@ public class DetailActivity extends AppCompatActivity {
         btnSearch = findViewById(R.id.btnSearch);
         btnRecommends = findViewById(R.id.btnRecommends);
 
-        //Initialize image
+        //Initialize images
         ImageView imgAlbum = findViewById(R.id.imgAlbum);
+        ImageView mImgBackground = findViewById(R.id.mImgBackground);
 
 
         //Initialize the player variables as required
@@ -427,6 +437,7 @@ public class DetailActivity extends AppCompatActivity {
         mPlays.setText(plays + " Plays");
         mDescription.setText(description);
         imgAlbum.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
+        mImgBackground.setImageResource(MainActivity.songsTemp.get(MainActivity.intSong).getImage());
 
         //Set an OnClickListener to take user to Google search for Artist and Song when user clicks on Button Search
         mSearch.setOnClickListener(new View.OnClickListener() {

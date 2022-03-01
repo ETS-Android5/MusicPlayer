@@ -3,10 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/drawable_roundedrectangle.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/gradient_detailactivity.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/ic_launcher_background.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_back.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_fast_forward.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_light.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_light_bk.xml" value="0.4203125" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_love.xml" value="0.4203125" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_music.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_night.xml" value="0.4203125" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_pause.xml" value="0.24739583333333334" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_play.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_plays.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_rating.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_rewind.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_search.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_search_white.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_song.xml" value="0.4203125" />
+        <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/drawable/icon_theme.xml" value="0.4203125" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/activity_detail.xml" value="0.4" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/activity_main.xml" value="0.4041666666666667" />
         <entry key="..\:/Users/Erwin/AndroidStudioProjects/music-recommender-app-erwinmqiu/app/src/main/res/layout/item_row.xml" value="0.6" />
