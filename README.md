@@ -1,1 +1,12 @@
-Music Recommender is a mobile app that provides personalised music recommendations and detailed information about each album/song.
+This is a Music Player application, mainly building it for learing purposes in Android Studios.
+Language: Java
+Features:
+- Play Songs
+- Browse Songs
+- Rate Songs
+- View Suggested Songs
+
+WIP Features:
+- Playlists
+- Import Songs
+- Favourite Songs
