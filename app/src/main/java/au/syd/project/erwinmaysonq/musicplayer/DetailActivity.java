@@ -50,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
     public static int recommendedSongPlays;
 
     //For adjusting rating of Song
+    EditText txtRating;
 
     //Imagebuttons of fxml
     ImageButton btnBack, btnSearch, btnWhiz;
