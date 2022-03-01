@@ -1,4 +1,4 @@
-package au.edu.unsw.infs3634.musicrecommender;
+package au.syd.project.erwinmaysonq.musicplayer;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "au.edu.unsw.infs3634.musicrecommender"
+        applicationId "au.syd.project.erwinmaysonq.musicplayer"
         minSdk 25
         targetSdk 30
         versionCode 1

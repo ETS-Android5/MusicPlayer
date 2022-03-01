@@ -1,4 +1,4 @@
-package au.edu.unsw.infs3634.musicrecommender;
+package au.syd.project.erwinmaysonq.musicplayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -18,10 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

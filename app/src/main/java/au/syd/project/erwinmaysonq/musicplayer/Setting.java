@@ -1,4 +1,4 @@
-package au.edu.unsw.infs3634.musicrecommender;
+package au.syd.project.erwinmaysonq.musicplayer;
 
 public class Setting {
 
