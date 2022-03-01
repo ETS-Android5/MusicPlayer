@@ -51,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     //Imagebuttons of fxml
-    ImageButton btnBack, btnSearch, btnWhiz;
+    ImageButton btnBack, btnSearch;
 
     //Need an instance of DatabaseHandler in order to update database values for each Song
     DatabaseHandler databaseHandler = new DatabaseHandler(DetailActivity.this);
